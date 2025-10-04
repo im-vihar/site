@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cuxdi.xyz</title>
+    <!-- We keep Font Awesome, as it's a standard CDN and not a local asset -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"/>
+    <meta content="cuxdi.xyz" property="og:title" />
+    <meta content="Let it beep!" property="og:description" />
+    <meta content="https://cuxdi.xyz" property="og:url" />
+    <meta content="https://cuxdi.xyz/assets/bunnymac-big.png" property="og:image" />
+    <meta content="#FFFFFF" data-react-helmet="true" name="theme-color" />
+
+    <!-- ALL CSS INLINED HERE -->
+    <style>
+        @font-face {
+            /* Note: These fonts (MS PGothic.ttf, pixChicago.ttf) will not load
+               unless they are available in the runtime environment. */
+            font-family: 'msgfallback';
+            src: url('MS\ PGothic.ttf');
+        }
+
+        @font-face {
+            font-family: 'chicago';
+            src: url('pixChicago.ttf');
+        }
+
+        body{
+            image-rendering: pixelated;
+
+            background-image: url(dither1.png);
+            font-family: 'MS PGothic', 'ＭＳ Pゴシック' , 'MS Pゴシック' , Mspgothic, 'pgothic', 'msgfallback' , monospace, sans-serif;
+
+            font-smooth: never;
+            -webkit-font-smoothing : none;
+        }
+
+        main{
+            box-sizing: border-box;
+            max-width: 1000px;
+            min-height: 850px;
+            margin:auto;
+
+            background-color: white;
+            border:1px solid black;
+        }
+
+        header{
+            box-sizing: border-box;
+            padding: 10px;
+            margin-bottom: -10px;
+        }
+
+        a{
+            color: black;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .logo{
+            display: table-cell;
+            vertical-align: middle;
+            border: 1px solid black;
+            width: 250px;
+            height: 146px;
+            padding: 2px;
+
+            text-align: center;
+        }
+
+        #motto{
+            font-size: 12px;
+        }
+
+        .logo h1{
+            margin: 2px;
+        }
+
+        .banner{
+            float: right;
+            width: calc(100% - 260px); /* 250px logo + 10px gap buffer */
+            height: 150px;
+
+            /* Image URL path is relative to the directory of this file */
+            background-image: url('banners/keyboard.png');
+            background-repeat: no-repeat;
+            background-size: auto 100%; /* keep full height, scale width naturally */
+            background-position: left center; /* start from left, horizontally cropped */
+            border: 1px solid black;
+
+            overflow: hidden; /* clips the background */
+            margin-left: 10px;
+        }
+
+        .clear{
+            clear: both;
+        }
+
+        .navbar{
+            margin-top: 5px;
+            padding: 2px;
+
+            background-color: black;
+            color: white;
+        }
+
+        .navbar a{
+            color: white;
+        }
+
+        .navbar-right{
+            float: right;
+        }
+
+        hr{
+            display: block;
+            height: 1px;
+            border: 0;
+            border-top: 1px solid black;
+            margin: 1em 0;
+            padding: 0;
+        }
+
+        button{
+            border-radius: 0px;
+            border: 1px solid black;
+            font-family: 'MS PGothic', 'ＭＳ Pゴシック' , 'MS Pゴシック' , Mspgothic, 'pgothic', monospace, sans-serif;
+        }
+
+        .leftcollumn{
+            float:left;
+            margin: 10px;
+            max-width: 200px;
+        }
+
+        .window ul{
+            padding-left: 15px;
+            list-style-type: square;
+        }
+
+        .rightcollumn{
+            float:right;
+            margin: 10px;
+            max-width: 200px;
+        }
+
+        .pfp{
+            text-align: center;
+            margin-left: auto;
+            margin-right:auto;
+            margin-top: 10px;
+        }
+
+        .window{
+            border:1px solid black;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        .maincontent{
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+
+            max-width: 550px;
+
+            border:1px solid black;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10px;
+            margin-bottom: 10px;
+
+            overflow: hidden;
+
+            padding: 10px;
+        }
+
+        .maincontent iframe{
+            border: 1px solid black;
+            height: 300px;
+            width: 525px;
+            margin: auto;
+            margin-bottom: 10px;
+        }
+
+        .title{
+            background-color: black;
+            color:white;
+            margin-left: -5px;
+            margin-right: -5px;
+            margin-top: -5px;
+            margin-bottom:0px;
+            text-align: center;
+        }
+
+        .welcome{
+            font-family: 'chicago',monospace,sans-serif;
+        }
+
+        .title::after{
+            margin-top: 100px;
+        }
+
+        .buttons{
+            margin-top: 5px;
+        }
+
+        .buttons a{
+            filter: grayscale(100%);
+            transition: 0.5s;
+        }
+
+        .buttons a:hover{
+            filter: grayscale(0%);
+        }
+
+        .c{
+            text-align: center;
+        }
+
+        .news{
+            margin: 10px 0px;
+            padding: 0px 10px;
+            max-height: 132px;
+            border: 1px solid black;
+            overflow: scroll;
+        }
+
+        .radio{
+            background-color: white;
+            display: block;
+            border: 1px solid black;
+            padding-bottom: 5px;
+            position: fixed;
+            bottom: 10px;
+            width: 250px;
+            filter: grayscale(100%);
+        }
+
+        .radio a{
+            color: white;
+        }
+
+        .navcaption{
+            margin-bottom: -15px;
+            margin-top: 15px;
+        }
+
+        .mobileonly{
+            display: none;
+        }
+
+        #slogs{
+            filter: grayscale(100%);
+        }
+
+        .webring-prev a, .webring-next a{
+            text-decoration: none;
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 5px;
+            }
+
+            main {
+                width: 100%;
+                min-height: auto;
+                margin: 0;
+                border-width: 0;
+            }
+
+            .logo{
+                display: block;
+                width: 100%;
+                height: auto;
+                float: none;
+                margin-bottom: 10px;
+            }
+
+            .banner{
+                display: none;
+            }
+
+            .navbar, .navbar-right {
+                text-align: center;
+                float: none;
+            }
+
+            .leftcollumn,
+            .rightcollumn {
+                float: none;
+                max-width: 100%;
+                margin: 10px 0;
+            }
+
+            .maincontent {
+                max-width: 100%;
+                width: 100%;
+                padding: 10px;
+            }
+
+            .maincontent iframe {
+                width: 100%;
+                height: auto;
+            }
+
+            .radio {
+                background-color: white;
+                display: block;
+                border: 1px solid black;
+                padding-bottom: 5px;
+                position: fixed;
+                left: 10vw;
+                right: 10vw;
+                filter: grayscale(100%);
+            }
+
+            #pconly{
+                display: none;
+            }
+
+            .mobileonly{
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <div class="banner">
+            </div>
+            <div class="logo">
+                <h1>cuxdi.xyz</h1>
+                <span id="motto"></span> <a onclick="randMotto()">⟳</a>
+            </div>
+            <div class="clear"></div>
+            <div class="navbar">
+                Happy Halloween!
+                <span class="navbar-right">
+                    <!-- The theme switching logic is implemented in the inline script below -->
+                    <select name="Themes" id="themeSelect">
+                        <option value="light">Classic</option>
+                        <option value="dark">Dark</option>
+                        <option value="spoopy">Spoopy</option>
+                    </select>
+                </span>
+                <br style="clear: both;">
+            </div>
+        </header>
+        <div class="leftcollumn">
+            <div class="window">
+                <div class="title">Navigation</div>
+                <div class="navcaption">Social</div>
+                <ul>
+                    <li><a href="../computering/" target="_blank">Computering Webring</a></li>
+                    <li><a href="../oekakish/" target="_blank">/oekakish/</a></li>
+                    <li><a href="../blog/">Blog</a></li>
+                    <li><a href="../sloggr/">sloggr</a></li>
+                </ul>
+                <div class="navcaption">Fun</div>
+                <ul>
+                    <li><a href="../goodimages/">Good Images</a></li>
+                    <li><a href="../blobslop/" target="_blank">(Low effort) Comics</a></li>
+                </ul>
+                <div class="navcaption">Games</div>
+                <ul>
+                    <li><a href="../games/loadmint-dash/">loadmint DASH!</a></li>
+                </ul>
+                <div class="navcaption">Narcisism Headquarters</div>
+                <ul>
+                    <li><a href="../aboutme/">About Me</a></li>
+                    <li><a href="../ocs/">OC Gallery</a></li>
+                </ul>
+            </div>
+            <div class="window" id="pconly">
+                <div class="title">Follow cuxdi.xyz</div>
+                <div class="c" style="margin-top: 5px; margin-bottom:-10px;"><iframe src="https://nekoweb.org/frame/follow" frameborder="0" width="170" height="28"></iframe></div>
+            </div>
+            <div class="window" id="pconly">
+                <div class="title">Cool sites / Projects</div>
+                <div class="buttons">
+                    <a href="http://trickmint.gay" target="_blank"><img src="../computering/buttons/sylvisite.gif" alt="trickmint.gay"></a>
+                    <a href="https://elisttm.space/" target="_blank"><img src="assets/buttons/elisttmspace.gif" alt="elisttm.space"></a>
+                    <a href="https://zombot.net" target="_blank"><img src="https://zombot.net/zombot/assets/images/8831/zom8831.gif" alt="zombot.net"></a>
+                    <a href="https://klaudeisbored.neocities.org/" target="_blank"><img src="https://klaudeisbored.neocities.org/button_klaude.gif"></a>
+                    <a href="https://kiwiwi.nekoweb.org"><img src="assets/buttons/kiwiwibutton.png"></a>
+                     <a href="https://www.dragonflycave.com/" target="_blank"><img src="assets/buttons/dragonflies.gif" alt="The cave of dragonflies"></a>
+                    <a href="https://satellaviewplus.github.io/" target="_blank"><img src="assets/buttons/satellaviewplus.png" alt="Satellaview Plus"></a>
+                    <a href="https://infinitemac.org/" target="_blank"><img src="assets/buttons/infinitemac.png" alt="Infinite Mac"></a>
+                    <a href="https://ko-fi.com/wobbuu/shop" target="_blank"><img src="assets/buttons/vocaloidcursor.png" alt="Vocaloid Cursors NOW!"></a>
+                    <a href="https://www.youtube.com/@Techmoan" target="_blank"><img src="assets/buttons/techmoan.gif" alt="Techmoan"></a>
+                    <a href="https://www.youtube.com/@TechnologyConnections" target="_blank"><img src="assets/buttons/technology_connections.gif" alt="Technology Connections"></a>
+                    <a href="https://www.youtube.com/@CathodeRayDude" target="_blank"><img src="assets/buttons/cathode_ray_dude.gif" alt="Cathode Ray Dude"></a>
+                </div>
+            </div>
+            <div class="window">
+                <div class="title">Guestbook</div>
+                <p>Want to compliment me on my awesome site? Shill Linux? Call me a poser because I've never actually used a classic Mac before? Then why not...</p>
+                <div class="c"><a href="https://cuxdi.atabook.org/" target="_blank"><h3>Sign my guestbook!</h3></a></div>
+                <p>It'd mean a lot to me!</p>
+            </div>
+            <!-- Removed Webring window -->
+            <!-- Removed My button window -->
+        </div>
+        <div class="rightcollumn" id="pconly">
+            <div class="window">
+                <div class="title">About Me</div>
+                <div class="pfp"><img src="assets/haruo.png" width="178px" style="image-rendering:optimizeQuality;"></div>
+                <p>hiya! I'm cuxdi, a teen currently living in Australia.</p>
+                <p>My pronouns are he/him, and I was born on the 25th of September.</p>
+                <p>If you'd like to learn some more about me, consider checking out <a href="../aboutme/">this section!</a></p>
+            </div>
+            <div class="window">
+                <div class="title">Latest Scrobble</div>
+                <!-- Last.fm content is powered by the inline script below -->
+                <div id="widget" style="margin-top: 5px; text-align: center;"><p>♫ <span id="song">&#8987;</span></p></div>
+                <p style="font-size: 10px; margin-top: -10px;">Powered by <a href="https://github.com/biancarosa/lastfm-last-played?tab=readme-ov-file">biancarosa's now playing widget</a></p>
+            </div>
+            <div class="window">
+                <div class="title">Latest Status</div>
+                <div id="statuscafe" style="margin-top: 10px; filter: grayscale(100%);"><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div>
+                <!-- Status cafe script is still external -->
+                <script src="https://status.cafe/current-status.js?name=kuro_2427" defer></script>
+                <p style="font-size: 10px; text-align: center;">Powered by <a href="https://status.cafe/">status.cafe</a></p>
+            </div>
+            <div class="window">
+                <div class="title">Hit me up</div>
+                <p>As of late I've been trying to cut back on my social media usage, I'm only really active on tumblr, though I mostly just reblog art and funny stuff. I very rarely write my own posts.</p>
+                <p>Regardless, here's where you can find me:</p>
+                <ul>
+                    <li><u>cuxdi.xyz</u> on Discord</li>
+                    <li><a href="https://cuxdixyz.tumblr.com" rel="me">cuxdixyz</a> on tumblr</li>
+                    <li><a href="/email/" rel="me">E-Mail</a></li>
+                </ul>
+            </div>
+            <!-- Removed No one cares window -->
+        </div>
+        <div class="maincontent">
+            <div class="c"><h1 class="welcome">Welcome to cuxdi.xyz!</h1></div>
+            <p>Welcome to cuxdi.xyz! I'm the titular cuxdi, but I also go by sumi and sometimes Kuro, any of those are fine lol.</p>
+            <p>Unlike <a href="https://rakugaki.xyz">rakugaki.xyz</a>, which gradually shifted into being a slightly more professional and public facing website as I slowly started needing to get, like, jobs and stuff, this site shall be home to all the shameless, self indulgent, cringe, and otherwise "wow i really really do not want this to be on my literal resumé"-tier content!</p>
+            <p>And what better place to put it than right here on nekoweb? I always felt like I was missing out on at lest <i>some</i> of the fun by always using other more traditional hosts.</p>
+
+            <div class="title">What's new? <span style="vertical-align: middle;"><a href="../feed.xml"><img src="assets/rss.png" alt="[RSS]"></a></span></div>
+            <div class="news">
+                <p>1/10/2025 - Happy Halloween! Removed some old and deprecated pages and FINALLY implemented a dark theme and a seasonally appropriate halloween-ey theme!</p>
+                <hr>
+                <p>26/09/2025 - (Finally) Added a site updates RSS feed!</p>
+                <hr>
+                <p>14/09/2025 - New blog article! <a href="/blog/posts/2025-09-14.-(list)-5-video-game-locations-i'd-live-in.html">5 Video Game Locations I'd Live In</a>. Also fixed e-mail page's mobile layout and implemented a feature that skips the landing page on repeated visits.</p>
+                <hr>
+                <p>08/09/2025 - Updated <s>and obscured</s> e-mail.</p>
+                <hr>
+                <p>23/08/2025 - <a href="../games/loadmint-dash/">loadmint DASH!</a> quality of life update and new <a href="../blobslop/">blobslop</a>.</p>
+                <hr>
+                <p>20/08/2025 - Retooled the blog, fixed a MAJOR, big time mistake with the computering widget and added a cool person's button.</p>
+                <hr>
+                <p>17/08/2025 - Re-jackaloped myself and updated the landing page... again</p>
+                <hr>
+                <p>15/08/2025 - Updated Sylvie's domain on computering and reintroducing: <a href="../sloggr/">sloggr</a>!</p>
+                <hr>
+                <p>05/08/2025 - Switched out bsky link to tumblr</p>
+                <hr>
+                <p>01/08/2025 - Reworked the landing page to better fit the BAMBU widget and just overall be less of a mess internally. Also switched to <a href="https://github.com/marketplace/actions/deploy-to-nekoweb">a GitHub deployment method</a> which should make updating this site like, SO INSANELY easier.</p>
+                <hr>
+                <p>31/07/2025 - Been a sec, hasn't it? Soft launched <a href="https://bambu.nekoweb.org">BAMBU!</a> Please have a look at it, I worked really hard on this. Also added 3 more people to <a href="../computering/">computering!</a> Welcome, everyone! Fixed a bunch of typos and tiny CSS issues too, as well as finally switching to the new routing system. No more weird path issues!</p>
+                <hr>
+                <p>30/05/2025 - Switched from slogs to <a href="https://pikidiary.lol">Pikidiary</a></p>
+                <p>30/05/2025 - Revamped landing page and fixed an assortment of CSS issues.</p>
+                <hr>
+                <p>25/05/2025 - Late 2025 we coyote, and introducing: <a href="../ocs/">The OC Gallery</a></p>
+                <hr>
+                <p>18/05/2025 - <a href="../games/loadmint-dash/">I made a game!</a></p>
+                <hr>
+                <p>16/05/2025 - New blog post: <a href="../blog/posts/2025-05-16.-(journal)-the-day-kuro-became-cuxdi.html">The Day Kuro Became Cuxdi</a></p>
+                <hr>
+                <p>15/05/2025 - New domain! New username! Embeds! Blackjack! Hookers!</p>
+                <p>Seriously though, yeah, I realized "kuro" isn't exactly the most original username on earth so I'm going by cuxdi or "sumi" now, and to celebrate, I got this snazzy new domain and nekoweb pro to match. I <i>SHOULD</i> have set everything up properly so all links to the old domain redirect to the new one, but if I missed anything, please <a href="mailto:kuro@semicola.xyz">e-mail me!</a></p>
+                <hr>
+                <p>13/05/2025 - Introducing: <a href="../blog/">my blog</a> :D</p>
+                <p>13/05/2025 - Added mobile layout and better support for lower res displays.</p>
+                <hr>
+                <p>12/05/2025 - Introducing <a href="../sloggr/">sloggr!</a> Really proud of this one!</p>
+                <hr>
+                <p>7/05/2025 - Added <a href="../vocaboomer-quiz/">the Vocaboomer Quiz</a> and a new <a href="../computering/">Computering</a> member(!)</p>
+                <hr>
+                <p>25/03/2025 - Added <a href="../blobslop/">comics</a> and <a href="../conspiracyboard/">headcanons</a> sections.</p>
+                <hr>
+                <p>07/03/2025 - Added <a href="../aboutme/">about me</a> section.</p>
+                <hr>
+                <p>05/03/2025 - Introducing <a href="../oekakish/">/oekakish/!</a></p>
+                <hr>
+                <p>Still 02/03/2025 - Finally finished <a href="../goodimages/">the good image gallery</a> and reorganized side windows a bit.</p>
+                <p>02/03/2025 - Fanmade projects so good I had to ride them</p>
+                <hr>
+                <p>27/02/2025 - Added awesome ass 404 page</p>
+                <hr>
+                <p>25/02/2025 - Switched radio from Wikiplayer to a YouTube embed as the former was seemingly breaking things for no reason</p>
+                <hr>
+                <p>24/02/2025 - Introducing: <a href="../computering/">Computering!</a></p>
+            </div>
+            <div class="title">Slogs</div>
+            <p>It's like microblogging but harder and jankier!</p>
+            <!-- NOTE: iframe content relies on external files/paths -->
+            <iframe src="../slogs/"></iframe>
+            <div class="c" style="margin-top: -10px; margin-bottom: 10px; font-size: 10px;">Powered by <a href="../sloggr/">sloggr</a></div>
+            <div class="title">The spotlight</div>
+            <p>This subsection is where I showcase cool things I'd like to share, but <s>I was too lazy to</s> for one reason or another I couldn't write a full blog article on. So please, if you have the time, check out...</p>
+            <hr>
+            <p><h3><a href="https://ballsack.tv/">Ballsack TV</a></h3></p>
+            <p>Hands down my favorite web radio ever. Died briefly in 2024 but came back as a fan run project in a really neat format similar to MTV where you can watch the music videos along with the songs!!</p>
+            <hr>
+            <p><h3><a href="https://www.youtube.com/@hhhazel">Hazel</a></h3></p>
+            <p>Hazel is THE best video essayist on YouTube right now hands down. She covers some really interesting stuff, and her videos are insanely well written and paced. </p>
+            <hr>
+            <p><h3><a href="https://www.youtube.com/@FNWeeaboo">FNWeeaboo</a></h3></p>
+            <p>One of the best rhythm game channels on YouTube, and DEFINITELY the most overlooked one.<br>His dead rhythm games series is top notch content.</p>
+            <hr>
+            <p><h3><a href="https://7nonsense.neocities.org/">7nonsense</a></h3></p>
+            <p>A stylish website featuring cool photos taken on old and unusual hardware.</p>
+        </div>
+        <div class="mobileonly">
+            <div class="window">
+                <div class="title">About Me</div>
+                <div class="pfp"><img src="assets/haruo.png" alt="A very sketchy pixel art drawing of a jackalope furry with round glasses and thick eyebrows wearing a beret and looking at the camera with a cocky expression"></div>
+                <p>hiya! I'm cuxdi, a teen currently living in Australia.</p>
+                <p>My pronouns are he/him, and I was born on the 25th of September.</p>
+                <p>If you'd like to learn some more about me, consider checking out <a href="../aboutme/">this section!</a></p>
+            </div>
+            <div class="window">
+                <div class="title">Hit me up</div>
+                <p>As of late I've been trying to cut back on my social media usage, I'm only really active on tumblr, though I mostly just reblog art and funny stuff. I very rarely write my own posts.</p>
+                <p>Regardless, here's where you can find me:</p>
+                <ul>
+                    <li><u>cuxdi.xyz</u> on Discord</li>
+                    <li><a href="https://cuxdixyz.tumblr.com" rel="me">cuxdixyz</a> on tumblr</li>
+                    <li><a href="/email/">E-Mail</a></li>
+                </ul>
+            </div>
+            <div class="window">
+                <div class="title">Follow cuxdi.xyz</div>
+                <div class="c" style="margin-top: 5px; margin-bottom:-10px;"><iframe src="https://nekoweb.org/frame/follow" frameborder="0" width="170" height="28"></iframe></div>
+            </div>
+            <div class="window">
+                <div class="title">Buttons</div>
+                <div class="buttons">
+                    <marquee behavior="" direction="">
+                    <a href="http://rakugaki.xyz" target="_blank"><img src="http://rakugaki.xyz/assets/images/button.png" alt="rakugaki"></a>
+                    <a href="http://trickmint.gay" target="_blank"><img src="../computering/buttons/sylvisite.gif" alt="trickmint.gay"></a>
+                    <a href="https://elisttm.space/" target="_blank"><img src="assets/buttons/elisttmspace.gif" alt="elisttm.space"></a>
+                    <a href="https://www.dragonflycave.com/" target="_blank"><img src="assets/buttons/dragonflies.gif" alt="The cave of dragonflies"></a>
+                    <a href="https://satellaviewplus.github.io/" target="_blank"><img src="assets/buttons/satellaviewplus.png" alt="Satellaview Plus"></a>
+                    <a href="https://infinitemac.org/" target="_blank"><img src="assets/buttons/infinitemac.png" alt="Infinite Mac"></a>
+                    <a href="https://ko-fi.com/wobbuu/shop" target="_blank"><img src="assets/buttons/vocaloidcursor.png" alt="Vocaloid Cursors NOW!"></a>
+                    <a href="https://klaudeisbored.neocities.org/" target="_blank"><img src="https://klaudeisbored.neocities.org/button_klaude.gif"></a>
+                    <a href="https://www.youtube.com/@Techmoan" target="_blank"><img src="assets/buttons/techmoan.gif" alt="Techmoan"></a>
+                    <a href="https://www.youtube.com/@TechnologyConnections" target="_blank"><img src="assets/buttons/technology_connections.gif" alt="Technology Connections"></a>
+                     </marquee>
+                </div>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+    </main>
+    <div class="radio" id="pconly">
+            <div class="title" style="width: 250px; margin: auto;">Radio <a onclick="toggleRadio()">[-]</a></div>
+            <div class="embed-container" style="margin-bottom: -9px;" id="ratio">
+                <div id="player">
+                    <!-- Placeholder for YouTube Player -->
+                    <p style="padding: 10px; font-size: 12px; text-align: center;">[Radio Player is unavailable in this standalone version]</p>
+                </div>
+            </div>
+    </div>
+
+    <!-- ALL JAVASCRIPT INLINED HERE -->
+    <script>
+        // --- Mottos Script ---
+        const possibleMottos=[
+            "On the internet, no one knows you're 6 fursonas in a trench coat",
+            "Ironically not made with WYSIWYG",
+            "It USED TO BE a Perfect Blue reference!",
+            "Because unclesumisphantomfunhou.se was too expensive",
+            "Also try rakugaki.xyz!",
+            "Also try trickmint.gay!",
+            "Home of awesome",
+            "Presented in 1 glorious bit",
+            "The Macintosh is neat",
+            "Who needs a dark mode, anyway?",
+            "Maybe it's the way you're dressed",
+            "All that computer I'm buying",
+            "The sky had a Pokémon",
+            "I play computer",
+            "The human brain is just a really complex hypercard stack actually",
+            "As seen on stupid.com!",
+            "Let it beep!",
+            "I think it can digging in the ground for tubers"
+        ];
+
+        const halloMottos=[
+            "Coming out to socialize while grinning grimly!",
+            "There used to be a light mode here, it's gone now",
+            "Rated #1 most terrifying website by Leporiphobics Monthly",
+            "#TeamWerewolves but vampires are cool too",
+            "CREEPYPASTA! AUGH!!",
+            "Coming soon to a haunted Mac near you!",
+            "man door hand hook car door",
+            "Now with up to 50% more hyperrealistic blood and eyes!",
+            "\"Is this a hole I see before me?\" And it echoed like a hole...",
+            "then Mare-e-o appeared but then gaussian blurred away"
+        ];
+
+        const mottoDiv = document.getElementById("motto");
+
+        function randMotto() {
+            // Using the combined list, but you could switch to halloMottos based on date if desired
+            const allMottos = possibleMottos.concat(halloMottos);
+            const number = Math.floor(Math.random() * allMottos.length);
+            mottoDiv.innerHTML = allMottos[number];
+        }
+
+        // Initialize motto on load
+        randMotto();
+
+        // --- Last.fm Latest Scrobble Script ---
+        function fetchLastFm() {
+            const user = 'kuro2427';
+            // Using a working CORS proxy to fetch Last.fm data
+            const url = `https://api.allorigins.win/raw?url=${encodeURIComponent('https://lastfm-last-played.biancarosa.com.br/' + user + '/latest-song')}`;
+            const songElement = document.querySelector('#song');
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(json => {
+                    if (json && json.track && json.track.artist && json.track.name) {
+                        songElement.innerHTML = `${json.track.artist['#text']} - ${json.track.name}`;
+                    } else {
+                        songElement.innerHTML = 'Last.fm track unavailable';
+                    }
+                })
+                .catch(error => {
+                    console.error("Could not fetch Last.fm data:", error);
+                    songElement.innerHTML = 'Could not load song data';
+                });
+        }
+        fetchLastFm();
+
+        // --- Mockup/Utility Functions ---
+
+        // Mockup for themeswitcher.js functionality
+        const themeSelect = document.getElementById('themeSelect');
+        const styleLink = document.getElementById('pageStyle');
+        if (themeSelect) {
+            themeSelect.addEventListener('change', (event) => {
+                const selectedTheme = event.target.value;
+                const body = document.body;
+
+                // Simple theme mock logic (apply a class to the body)
+                body.className = '';
+                if (selectedTheme === 'dark') {
+                    // For a real theme, you would load an external CSS file or apply classes
+                    body.classList.add('dark-theme-mock');
+                    // Changed alert() to a console log as per instructions
+                    console.log(`Theme switched to Dark (Mock)`);
+                } else if (selectedTheme === 'spoopy') {
+                    body.classList.add('spoopy-theme-mock');
+                    console.log(`Theme switched to Spoopy (Mock)`);
+                } else { // Classic/light
+                    console.log(`Theme switched to Classic (Mock)`);
+                }
+            });
+        }
+
+        // Mockup for radio toggle (from ytplayer.js logic)
+        function toggleRadio() {
+            const radio = document.querySelector('.radio');
+            const toggleLink = radio.querySelector('a');
+
+            if (radio.style.display === 'none') {
+                radio.style.display = 'block';
+                toggleLink.textContent = '[-]';
+            } else {
+                radio.style.display = 'none';
+                toggleLink.textContent = '[+]';
+            }
+        }
+    </script>
+</body>
+</html>
