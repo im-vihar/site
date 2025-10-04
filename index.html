@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>C U X D I</title>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Fira+Code:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<style>
+            /* Nord Theme Color Palette */
+            :root {
+                --sidebar-width: 280px;
+                --nord0: #2E3440; /* Polar Night - Darkest BG */
+                --nord1: #3B4252; /* Polar Night - Sidebar BG */
+                --nord3: #4C566A; /* Polar Night - Faded Color (Border/Lines) */
+                --nord4: #D8DEE9; /* Snow Storm - Primary Text */
+                --nord5: #E5E9F0; /* Snow Storm - Light Text */
+                --nord6: #ECEFF4; /* Snow Storm - Lightest */
+                --nord8: #BF616A; /* Aurora - Red */
+                --nord10: #EBCB8B; /* Aurora - Yellow */
+                --nord11: #A3BE8C; /* Aurora - Green */
+                --nord13: #B48EAD; /* Aurora - Violet (Primary Accent) */
+                --nord14: #8FBCBB; /* Frost - Cyan (Directory Accent) */
+                
+                /* Mapped Variables */
+                --primary-color: var(--nord4);
+                --secondary-color: var(--nord5);
+                --faded-color: var(--nord3);
+                --background-color: var(--nord0); 
+                --accent-color: var(--nord13); 
+                --font-primary: 'Bodoni Moda', serif;
+                --font-sidebar: 'Fira Code', monospace;
+                --font-content: sans-serif;
+            }
+
+            /* CSS Animation for subtle sway */
+            @keyframes sway {
+                0% { transform: rotate(0.5deg); }
+                50% { transform: rotate(-0.5deg); }
+                100% { transform: rotate(0.5deg); }
+            }
+
+            html, body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                font-family: var(--font-content);
+                background-color: var(--background-color);
+                color: var(--primary-color);
+                transition: background-color 0.3s, color 0.3s;
+            }
+            
+            /* Light Mode (Inverted Nord - less common but functional) */
+            body.light-mode {
+                --primary-color: var(--nord0);
+                --secondary-color: var(--nord1);
+                --background-color: var(--nord6);
+                --accent-color: #7955B0; /* Darker Violet */
+            }
+
+            a {
+                color: var(--accent-color);
+                text-decoration: none;
+                transition: color 0.2s;
+            }
+            a:hover {
+                color: var(--nord11); /* Green on hover */
+            }
+
+            /* Main Layout Structure (Sidebar and Content) */
+            .container {
+                display: flex;
+                min-height: 100vh;
+            }
+
+            .sidebar {
+                width: var(--sidebar-width);
+                flex-shrink: 0;
+                padding: 20px;
+                background-color: var(--nord1); /* Darker sidebar */
+                border-right: 1px solid var(--nord3);
+                position: relative;
+                z-index: 20;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                font-family: var(--font-sidebar); /* Monospace for terminal feel */
+            }
+            body.light-mode .sidebar {
+                background-color: var(--nord5);
+                border-right: 1px solid var(--nord4);
+            }
+            
+            .content {
+                flex-grow: 1;
+                padding: 40px;
+                overflow-y: auto;
+                font-size: 1.1em;
+                line-height: 1.6;
+            }
+            .content h2 {
+                color: var(--nord14); /* Cyan for headings */
+                border-bottom: 1px solid var(--nord3);
+                padding-bottom: 5px;
+                font-family: var(--font-primary);
+                font-size: 2em;
+            }
+
+            /* Title and Tagline Box */
+            .title-wrapper {
+                margin-bottom: 20px;
+            }
+            .title {
+                font-family: var(--font-primary);
+                font-size: 2.5em;
+                text-transform: uppercase;
+                margin: 0;
+                line-height: 1;
+                color: var(--nord10); /* Yellow for the main title */
+            }
+            
+            /* Non-Scrolling Tagline Box (Replaces Marquee) */
+            .tagline-box {
+                border: 1px solid var(--accent-color);
+                padding: 5px 10px;
+                margin-bottom: 30px;
+                font-size: 0.85em;
+                color: var(--nord11); /* Green for tagline text */
+                background-color: var(--nord0);
+                text-align: center;
+                cursor: pointer; /* Indicates it's interactive */
+                animation: sway 4s ease-in-out infinite alternate; /* Apply sway */
+                user-select: none; /* Prevent text selection on double-click */
+            }
+
+            /* Time and Location Block Styling */
+            .time-location-box {
+                font-family: var(--font-sidebar);
+                font-size: 0.9em;
+                color: var(--nord14); /* Cyan text */
+                padding: 10px 0;
+                border-top: 1px solid var(--nord3);
+                border-bottom: 1px solid var(--nord3);
+                margin-bottom: 30px;
+            }
+            .location-line {
+                margin-top: 5px;
+            }
+            
+            /* --- UPDATED Status Block Styling --- */
+            .status-wrapper {
+                margin: 0 0 20px 0; /* Reduced margin */
+                padding: 8px; /* Smaller padding */
+                border: 1px solid var(--nord3); /* Subtler border */
+                font-family: var(--font-sidebar);
+                background-color: var(--nord0); /* Darker background for contrast */
+                font-size: 0.8em; /* Smaller font size for integration */
+            }
+            .status-wrapper h3 {
+                /* New, smaller header */
+                color: var(--nord11); /* Green for status title */
+                font-size: 0.85em; 
+                margin: 0 0 3px 0;
+                padding: 0;
+                display: block;
+                border-bottom: 1px dotted var(--nord3);
+                padding-bottom: 3px;
+            }
+            #nekocafe-text {
+                font-size: 1em; /* Relative to parent 0.8em */
+                margin: 5px 0 3px 0;
+                color: var(--nord4); /* Primary text color for the message */
+                word-wrap: break-word; 
+            }
+            #nekocafe-text a {
+                color: var(--nord4); /* Keep message link color primary */
+            }
+            #nekocafe-time {
+                font-size: 0.9em; /* Relative to parent 0.8em */
+                margin: 0;
+                color: var(--nord14); /* Cyan for time/details */
+                text-align: right;
+            }
+
+            /* Navigation Tree Styling (Directory Look) */
+            .tree {
+                list-style: none;
+                padding: 0;
+                margin: 0 0 30px 0;
+                flex-grow: 1;
+            }
+            .tree li {
+                margin: 5px 0;
+            }
+            
+            /* Directory Spans */
+            .tree > li > span {
+                display: block;
+                font-family: var(--font-sidebar);
+                font-size: 1em;
+                color: var(--nord14); /* Cyan for directories */
+                margin-top: 15px;
+                margin-bottom: 5px;
+                cursor: default;
+                /* Simulate a directory structure prefix */
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            .tree > li > span::before {
+                content: "[DIR] /";
+                color: var(--nord14);
+            }
+            
+            .tree ul {
+                list-style: none;
+                padding-left: 20px;
+                margin: 5px 0;
+            }
+            .tree a {
+                display: block;
+                padding: 3px 0;
+                font-size: 0.9em;
+                color: var(--nord4); /* White/Light gray for files */
+            }
+            .tree a:hover {
+                color: var(--nord10); /* Yellow on hover */
+                text-decoration: underline;
+            }
+            /* Active link style */
+            .tree a.active {
+                font-weight: bold;
+                color: var(--nord8); /* Red for active file */
+            }
+            .tree a::before {
+                content: "> "; /* Simple file marker */
+                color: var(--accent-color);
+            }
+
+
+            /* Theme Stamp/Toggle */
+            .stamp {
+                display: block;
+                border: 2px dashed var(--accent-color);
+                text-align: center;
+                padding: 8px;
+                margin-top: 20px;
+                font-size: 0.9em;
+                cursor: pointer;
+                color: var(--primary-color);
+                background: rgba(180, 142, 173, 0.1); /* Subtle violet background */
+            }
+            .stamp:hover {
+                background: rgba(180, 142, 173, 0.3);
+            }
+
+            /* Footer */
+            .bottom-center-text {
+                text-align: center;
+                font-size: 0.75em;
+                color: var(--faded-color);
+                padding-top: 10px;
+            }
+
+            /* Decorative Elements */
+            .phone-img, .top-left-img, .title-bg-img {
+                display: none; 
+            }
+
+            /* Vertical Marquee Styling */
+            .vertical-marquee {
+                position: fixed;
+                top: 0;
+                left: calc(var(--sidebar-width) + 20px);
+                height: 100vh;
+                width: 100px;
+                overflow: hidden;
+                opacity: 0.08;
+                font-size: 0.8em;
+                line-height: 1.2;
+                pointer-events: none;
+                z-index: 1;
+                color: var(--accent-color);
+                writing-mode: vertical-rl;
+                text-orientation: mixed;
+                font-family: var(--font-sidebar);
+            }
+            .vertical-marquee span {
+                white-space: nowrap;
+                display: block;
+                animation: verticalScroll 60s linear infinite;
+            }
+            @keyframes verticalScroll {
+                0% { transform: translateY(0); }
+                100% { transform: translateY(-100%); }
+            }
+
+            /* Mobile Responsiveness */
+            @media (max-width: 768px) {
+                .container {
+                    flex-direction: column;
+                }
+                .sidebar {
+                    width: 100%;
+                    height: auto;
+                    border-right: none;
+                    border-bottom: 1px solid var(--nord3);
+                }
+                .content {
+                    padding: 20px;
+                }
+                .vertical-marquee {
+                    display: none;
+                }
+            }
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+			<aside class="sidebar">
+				<header class="title-wrapper">
+					<h1 class="title">CUXDI</h1>
+					<div class="title-bg-img"></div>
+				</header>
+
+				<div class="tagline-box" id="tagline-display">
+					</div>
+                
+                <div class="time-location-box">
+                    <div id="perth-time-display" class="time-line">
+                        </div>
+                    <div class="location-line">
+                        📌 Western Australia
+                    </div>
+                </div>
+
+                <div class="status-wrapper">
+                    <h3>[Nekocafe Status]</h3>
+                    <div id="nekocafe-status">
+                        <p id="nekocafe-text">Loading latest post...</p>
+                    </div>
+                </div>
+
+				<nav>
+					<ul class="tree">
+						<li>
+							<span>home</span>
+							<ul>
+								<li>
+									<a href="#" data-page="about-me"> about me </a>
+								</li>
+								<li><a href="#" data-page="bruises">blog</a></li>
+								<li><a href="#" data-page="neighbors">webrings</a></li>
+							</ul>
+						</li>
+						<li>
+							<span>human</span>
+							<ul>
+								<li><a href="#" data-page="catalogs">catalogs</a></li>
+								<li><a href="#" data-page="codes-1">codes</a></li>
+								<li><a href="#" data-page="creators">creators</a></li>
+								<li><a href="#" data-page="language">language</a></li>
+								<li><a href="#" data-page="codes-2">codes</a></li>
+							</ul>
+						</li>
+						<li>
+							<span>slaves</span>
+							<ul>
+								<li>
+									<span>collections</span>
+									<ul>
+										<li>
+											<a href="#" data-page="coins">coins</a>
+										</li>
+										<li>
+											<a href="#" data-page="dolls">dolls</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="#" data-page="commonplace"> commonplace </a>
+								</li>
+							</ul>
+						</li>
+						<li><a href="#" data-page="404">404</a></li>
+					</ul>
+				</nav>
+
+				<a href="#" class="stamp" id="theme-toggle">
+					<span>toggle theme</span>
+				</a>
+
+				<footer class="bottom-center-text">
+					cuxdi.nekoweb.org
+				</footer>
+			</aside>
+
+			<main class="content" id="content-box">
+				<p>Loading content...</p>
+			</main>
+
+			<div class="corner-overlay"></div>
+			<div class="phone-img"></div>
+			<div class="top-left-img"></div>
+		</div>
+        
+		<div class="vertical-marquee">
+			<span>
+				Faceless angels fall You and I see They scream and call No god
+				answers They're bare They're faceless Only white hair With
+				creamy skin They Glided Or they ran Grace is confided Never in
+				or out They got thin And start to slow Did they sin? Was death a
+				punishment? Death was the end Or was it the start? No matter
+				what I send You'll never see angels - by Donny
+			</span>
+			<span>
+				Faceless angels fall You and I see They scream and call No god
+				answers They're bare They're faceless Only white hair With
+				creamy skin They Glided Or they ran Grace is confided Never in
+				or out They got thin And start to slow Did they sin? Was death a
+				punishment? Death was the end Or was it the start? No matter
+				what I send You'll never see angels - by Donny
+			</span>
+		</div>
+
+		<script>
+            // --- Content Mapping (All content unified here) ---
+            const SPA_PAGES = {
+                'about-me': '<h2>about me</h2><p>hiya! im cuxdi. A teen that\'s intrested in programming, computers, music, and reading. this site is still a work in progress, but feel to look at whats here. my dms are open on discord: <code>wfqi</code> <br> i still dont know if i like this layout yet.. but trust the process!</p>',
+                'hobbies': '<h2>hobbies</h2><p>I collect dust, read discarded poetry, and specialize in programming languages that haunt my dreams (mostly JavaScript).</p>', 
+                'bruises': '<h2>blog (posts)</h2><p>WIP. other parts in site are prioritised, still looking for a blog system tho.</p>',
+                'neighbors': '<h2>webrings</h2><p>not in any yet...</p>',
+                'catalogs': '<h2>catalogs</h2><p>Links to my various digital collections and curated web lists.</p>',
+                'codes-1': '<h2>codes</h2><p>Snippets, cheats, and useful scripts I\'ve found or written.</p>',
+                'creators': '<h2>creators</h2><p>A list of people who inspire me. Check out their work!</p>',
+                'language': '<h2>language</h2><p>Thoughts on syntax, communication, and the words that fail us.</p>',
+                'codes-2': '<h2>codes</h2><p>More code snippets, focusing on CSS and layout tricks.</p>',
+                'coins': '<h2>collections / coins</h2><p>A catalog of my strange and worthless digital currency.</p>',
+                'dolls': '<h2>collections / dolls</h2><p>These are my favorite characters and personas.</p>',
+                'commonplace': '<h2>commonplace</h2><p>Mundane observations from the physical world. A necessary evil.</p>',
+                '404': '<h2>404</h2><p>Not found. Are you lost? Good. The best places are often unmarked.</p>'
+            };
+
+            const TAGLINES = [
+                "\"ill be there in spirit\"",
+                "\"you're too late i already died\"",
+                "\"pls tell me you're okay\"",
+                "\"limerence\"",
+                "\"you'd look cuter as a femboy\"",
+                "\"why?\"",
+                "\"what is the point?\"",
+                "\"why am i still living?\"",
+                "\"i thought you'd know\"",
+                "\"hiya\"",
+                "\"depression..\"",
+                "\"why am i like this\"",
+                "\"meaning of life?\"",
+                "\"why would you do that to yourself?\"",
+                "\"you can do better..\"",
+                "\"wfqi on discord\""
+            ];
+            
+            let taglineInterval;
+            let perthTimeInterval; 
+
+            // --- Functionality ---
+
+            /**
+             * Sets up the SPA routing logic by retrieving content from the SPA_PAGES object.
+             * @param {string} pageId - The ID of the page to load (e.g., 'about-me').
+             */
+            function navigateTo(pageId) {
+                const contentBox = document.getElementById('content-box');
+                const pageContent = SPA_PAGES[pageId];
+
+                // Remove active class from all links
+                document.querySelectorAll('.tree a').forEach(a => a.classList.remove('active'));
+
+                if (pageContent) {
+                    // Update content
+                    contentBox.innerHTML = `<div class="page-content">${pageContent}</div>`;
+                    
+                    // Mark the clicked link as active
+                    const activeLink = document.querySelector(`.tree a[data-page="${pageId}"]`);
+                    if (activeLink) activeLink.classList.add('active');
+                } else {
+                    // Default error message 
+                    contentBox.innerHTML = `<h2>Content Error</h2><p>The content for this section is missing.</p>`;
+                }
+            }
+
+            /**
+             * Handles dark/light mode switching.
+             */
+            function toggleTheme() {
+                document.body.classList.toggle('light-mode');
+                const isLightMode = document.body.classList.contains('light-mode');
+                localStorage.setItem('cuxdi-theme', isLightMode ? 'light' : 'dark');
+            }
+
+            /**
+             * Updates the main Perth timezone clock display in the sidebar.
+             */
+            function updatePerthTime() {
+                const timeElement = document.getElementById('perth-time-display');
+                if (!timeElement) return;
+                
+                try {
+                    const now = new Date();
+                    const options = {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        hour12: true,
+                        timeZone: 'Australia/Perth'
+                    };
+                    
+                    const formatter = new Intl.DateTimeFormat('en-US', options);
+                    const timeString = formatter.format(now);
+                    
+                    // Display only the clock icon and time
+                    timeElement.innerHTML = `⌚ ${timeString}`;
+
+                } catch (e) {
+                    timeElement.textContent = "⌚ Time loading error";
+                    console.error("Timezone formatting failed:", e);
+                }
+            }
+
+            /**
+             * Chooses and displays a random tagline.
+             * @param {boolean} restartTimer - If true, clears and restarts the automatic rotation timer.
+             */
+            function displayRandomTagline(restartTimer = false) {
+                const taglineBox = document.getElementById('tagline-display');
+                if (!taglineBox) return;
+
+                const randomIndex = Math.floor(Math.random() * TAGLINES.length);
+                taglineBox.textContent = TAGLINES[randomIndex];
+
+                if (restartTimer) {
+                    clearInterval(taglineInterval);
+                    taglineInterval = setInterval(() => displayRandomTagline(false), 60000);
+                }
+            }
+
+            /**
+             * Fetches and displays the latest NekoCafe status.
+             */
+            function fetchNekoCafeStatus() {
+                const username = "cuxdi"; 
+                const posts_url = "https://cafe.frizzbees.dev/get_posts/1?name=";
+                const post_url = "https://social.nekoweb.org/post/?id=";
+                const div = document.getElementById("nekocafe-status");
+
+                (async () => {
+                    try {
+                        const request = await fetch(posts_url + username);
+                        let json = await request.json();
+                        // Assume we want the very first (latest) post
+                        const latestPost = json[0]; 
+
+                        if (latestPost && latestPost.post) {
+                            const timestamp = latestPost.timestamp * 1000;
+                            // Format timestamp to a human-readable UTC string
+                            // Using toLocaleString with options is cleaner for non-UTC
+                            const timeOptions = { 
+                                year: 'numeric', month: 'short', day: 'numeric', 
+                                hour: '2-digit', minute: '2-digit', 
+                                timeZoneName: 'short' 
+                            };
+                            const time = new Date(timestamp).toLocaleString('en-US', timeOptions);
+                        
+                            // Only display the post content and the time
+                            div.innerHTML = `
+                                <p id="nekocafe-text"><a href="${post_url + latestPost.id}">${latestPost.post}</a></p>
+                                <p id="nekocafe-time">${time}</p>
+                            `;
+                        } else {
+                             div.innerHTML = `<p id="nekocafe-text">No recent status found.</p>`;
+                        }
+
+                    } catch (error) {
+                        console.error("NekoCafe fetch failed:", error);
+                        div.innerHTML = `<p id="nekocafe-text">Status feed unavailable.</p>`;
+                    }
+                })();
+            }
+
+
+            // --- Initialization ---
+
+            document.addEventListener('DOMContentLoaded', function() {
+                // 1. Apply saved theme preference
+                const savedTheme = localStorage.getItem('cuxdi-theme');
+                if (savedTheme === 'light') {
+                    document.body.classList.add('light-mode');
+                }
+
+                // 2. Attach click listener for theme toggle
+                document.getElementById('theme-toggle').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    toggleTheme();
+                });
+
+                // 3. Attach click listeners for SPA navigation
+                document.querySelectorAll('.tree a').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const pageId = link.getAttribute('data-page');
+                        if (pageId) {
+                            navigateTo(pageId);
+                        }
+                    });
+                });
+                
+                // 4. Initialize and start the Perth clock
+                updatePerthTime();
+                perthTimeInterval = setInterval(updatePerthTime, 1000); 
+
+                // 5. Initialize and cycle taglines
+                displayRandomTagline(false); 
+                taglineInterval = setInterval(() => displayRandomTagline(false), 60000); 
+
+                // 6. Add double-click listener to cycle tagline immediately
+                const taglineBox = document.getElementById('tagline-display');
+                if (taglineBox) {
+                    taglineBox.addEventListener('dblclick', function() {
+                        displayRandomTagline(true); 
+                    });
+                }
+                
+                // 7. Fetch NekoCafe status
+                fetchNekoCafeStatus();
+
+                // 8. Load default page (about me) on initial load
+                navigateTo('about-me'); 
+            });
+		</script>
+	</body>
+</html>
