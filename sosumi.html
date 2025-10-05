@@ -28,20 +28,85 @@
 
         body{
             image-rendering: pixelated;
-
             background-image: url(dither1.png);
             font-family: 'MS PGothic', 'ＭＳ Pゴシック' , 'MS Pゴシック' , Mspgothic, 'pgothic', 'msgfallback' , monospace, sans-serif;
-
             font-smooth: never;
             -webkit-font-smoothing : none;
+            /* Default Light Mode Styles */
+            background-color: white;
+            color: black;
         }
+
+        /* --- DARK MODE STYLES --- */
+        .dark-theme {
+            background-color: #1a1a1a; /* Dark background */
+            background-image: none; /* Removing the dither pattern */
+            color: #e0e0e0; /* Light text */
+        }
+
+        .dark-theme main {
+            background-color: #2b2b2b; /* Darker main container */
+            border: 1px solid #999999;
+        }
+
+        .dark-theme a {
+            color: #9cdcfe; /* Light blue link color */
+        }
+        
+        .dark-theme .logo {
+            border: 1px solid #999999;
+        }
+
+        .dark-theme .banner {
+            border: 1px solid #999999;
+        }
+
+        .dark-theme hr {
+            border-top: 1px solid #444444;
+        }
+
+        .dark-theme button {
+            background-color: #3a3a3a;
+            color: #e0e0e0;
+            border: 1px solid #999999;
+        }
+
+        .dark-theme .title {
+            background-color: #000000;
+            color: #00ff00; /* Neon green text for retro feel in dark mode */
+            border-bottom: 1px solid #00ff00;
+        }
+
+        .dark-theme .navbar {
+            background-color: #000000;
+            color: #00ff00; /* Green text for navbar */
+        }
+
+        .dark-theme .navbar a {
+            color: #00ff00;
+        }
+
+        .dark-theme .window {
+            border: 1px solid #999999;
+            background-color: #2b2b2b;
+        }
+        
+        .dark-theme .radio {
+            background-color: #2b2b2b;
+            border: 1px solid #999999;
+        }
+
+        .dark-theme .radio .title {
+            background-color: #000000;
+            color: #00ff00;
+        }
+        /* --- END DARK MODE STYLES --- */
 
         main{
             box-sizing: border-box;
             max-width: 1000px;
             min-height: 850px;
             margin:auto;
-
             background-color: white;
             border:1px solid black;
         }
@@ -65,7 +130,6 @@
             width: 250px;
             height: 146px;
             padding: 2px;
-
             text-align: center;
         }
 
@@ -81,15 +145,12 @@
             float: right;
             width: calc(100% - 260px); /* 250px logo + 10px gap buffer */
             height: 150px;
-
-            /* Image URL path is relative to the directory of this file */
             background-image: url('banners/keyboard.png');
             background-repeat: no-repeat;
-            background-size: auto 100%; /* keep full height, scale width naturally */
-            background-position: left center; /* start from left, horizontally cropped */
+            background-size: auto 100%;
+            background-position: left center;
             border: 1px solid black;
-
-            overflow: hidden; /* clips the background */
+            overflow: hidden;
             margin-left: 10px;
         }
 
@@ -100,7 +161,6 @@
         .navbar{
             margin-top: 5px;
             padding: 2px;
-
             background-color: black;
             color: white;
         }
@@ -162,17 +222,13 @@
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
-
             max-width: 550px;
-
             border:1px solid black;
             margin-left: auto;
             margin-right: auto;
             margin-top: 10px;
             margin-bottom: 10px;
-
             overflow: hidden;
-
             padding: 10px;
         }
 
@@ -316,6 +372,9 @@
                 right: 10vw;
                 filter: grayscale(100%);
             }
+            .dark-theme .radio {
+                 background-color: #2b2b2b; /* Ensure dark theme applies on mobile radio too */
+            }
 
             #pconly{
                 display: none;
@@ -338,13 +397,13 @@
             </div>
             <div class="clear"></div>
             <div class="navbar">
-                Happy Halloween!
+                <!-- Removed 'Happy Halloween!' text -->
                 <span class="navbar-right">
                     <!-- The theme switching logic is implemented in the inline script below -->
                     <select name="Themes" id="themeSelect">
                         <option value="light">Classic</option>
                         <option value="dark">Dark</option>
-                        <option value="spoopy">Spoopy</option>
+                        <!-- Removed 'Spoopy' option -->
                     </select>
                 </span>
                 <br style="clear: both;">
@@ -387,7 +446,7 @@
                     <a href="https://zombot.net" target="_blank"><img src="https://zombot.net/zombot/assets/images/8831/zom8831.gif" alt="zombot.net"></a>
                     <a href="https://klaudeisbored.neocities.org/" target="_blank"><img src="https://klaudeisbored.neocities.org/button_klaude.gif"></a>
                     <a href="https://kiwiwi.nekoweb.org"><img src="assets/buttons/kiwiwibutton.png"></a>
-                     <a href="https://www.dragonflycave.com/" target="_blank"><img src="assets/buttons/dragonflies.gif" alt="The cave of dragonflies"></a>
+                    <a href="https://www.dragonflycave.com/" target="_blank"><img src="assets/buttons/dragonflies.gif" alt="The cave of dragonflies"></a>
                     <a href="https://satellaviewplus.github.io/" target="_blank"><img src="assets/buttons/satellaviewplus.png" alt="Satellaview Plus"></a>
                     <a href="https://infinitemac.org/" target="_blank"><img src="assets/buttons/infinitemac.png" alt="Infinite Mac"></a>
                     <a href="https://ko-fi.com/wobbuu/shop" target="_blank"><img src="assets/buttons/vocaloidcursor.png" alt="Vocaloid Cursors NOW!"></a>
@@ -444,64 +503,8 @@
             <p>Unlike <a href="https://rakugaki.xyz">rakugaki.xyz</a>, which gradually shifted into being a slightly more professional and public facing website as I slowly started needing to get, like, jobs and stuff, this site shall be home to all the shameless, self indulgent, cringe, and otherwise "wow i really really do not want this to be on my literal resumé"-tier content!</p>
             <p>And what better place to put it than right here on nekoweb? I always felt like I was missing out on at lest <i>some</i> of the fun by always using other more traditional hosts.</p>
 
-            <div class="title">What's new? <span style="vertical-align: middle;"><a href="../feed.xml"><img src="assets/rss.png" alt="[RSS]"></a></span></div>
-            <div class="news">
-                <p>1/10/2025 - Happy Halloween! Removed some old and deprecated pages and FINALLY implemented a dark theme and a seasonally appropriate halloween-ey theme!</p>
-                <hr>
-                <p>26/09/2025 - (Finally) Added a site updates RSS feed!</p>
-                <hr>
-                <p>14/09/2025 - New blog article! <a href="/blog/posts/2025-09-14.-(list)-5-video-game-locations-i'd-live-in.html">5 Video Game Locations I'd Live In</a>. Also fixed e-mail page's mobile layout and implemented a feature that skips the landing page on repeated visits.</p>
-                <hr>
-                <p>08/09/2025 - Updated <s>and obscured</s> e-mail.</p>
-                <hr>
-                <p>23/08/2025 - <a href="../games/loadmint-dash/">loadmint DASH!</a> quality of life update and new <a href="../blobslop/">blobslop</a>.</p>
-                <hr>
-                <p>20/08/2025 - Retooled the blog, fixed a MAJOR, big time mistake with the computering widget and added a cool person's button.</p>
-                <hr>
-                <p>17/08/2025 - Re-jackaloped myself and updated the landing page... again</p>
-                <hr>
-                <p>15/08/2025 - Updated Sylvie's domain on computering and reintroducing: <a href="../sloggr/">sloggr</a>!</p>
-                <hr>
-                <p>05/08/2025 - Switched out bsky link to tumblr</p>
-                <hr>
-                <p>01/08/2025 - Reworked the landing page to better fit the BAMBU widget and just overall be less of a mess internally. Also switched to <a href="https://github.com/marketplace/actions/deploy-to-nekoweb">a GitHub deployment method</a> which should make updating this site like, SO INSANELY easier.</p>
-                <hr>
-                <p>31/07/2025 - Been a sec, hasn't it? Soft launched <a href="https://bambu.nekoweb.org">BAMBU!</a> Please have a look at it, I worked really hard on this. Also added 3 more people to <a href="../computering/">computering!</a> Welcome, everyone! Fixed a bunch of typos and tiny CSS issues too, as well as finally switching to the new routing system. No more weird path issues!</p>
-                <hr>
-                <p>30/05/2025 - Switched from slogs to <a href="https://pikidiary.lol">Pikidiary</a></p>
-                <p>30/05/2025 - Revamped landing page and fixed an assortment of CSS issues.</p>
-                <hr>
-                <p>25/05/2025 - Late 2025 we coyote, and introducing: <a href="../ocs/">The OC Gallery</a></p>
-                <hr>
-                <p>18/05/2025 - <a href="../games/loadmint-dash/">I made a game!</a></p>
-                <hr>
-                <p>16/05/2025 - New blog post: <a href="../blog/posts/2025-05-16.-(journal)-the-day-kuro-became-cuxdi.html">The Day Kuro Became Cuxdi</a></p>
-                <hr>
-                <p>15/05/2025 - New domain! New username! Embeds! Blackjack! Hookers!</p>
-                <p>Seriously though, yeah, I realized "kuro" isn't exactly the most original username on earth so I'm going by cuxdi or "sumi" now, and to celebrate, I got this snazzy new domain and nekoweb pro to match. I <i>SHOULD</i> have set everything up properly so all links to the old domain redirect to the new one, but if I missed anything, please <a href="mailto:kuro@semicola.xyz">e-mail me!</a></p>
-                <hr>
-                <p>13/05/2025 - Introducing: <a href="../blog/">my blog</a> :D</p>
-                <p>13/05/2025 - Added mobile layout and better support for lower res displays.</p>
-                <hr>
-                <p>12/05/2025 - Introducing <a href="../sloggr/">sloggr!</a> Really proud of this one!</p>
-                <hr>
-                <p>7/05/2025 - Added <a href="../vocaboomer-quiz/">the Vocaboomer Quiz</a> and a new <a href="../computering/">Computering</a> member(!)</p>
-                <hr>
-                <p>25/03/2025 - Added <a href="../blobslop/">comics</a> and <a href="../conspiracyboard/">headcanons</a> sections.</p>
-                <hr>
-                <p>07/03/2025 - Added <a href="../aboutme/">about me</a> section.</p>
-                <hr>
-                <p>05/03/2025 - Introducing <a href="../oekakish/">/oekakish/!</a></p>
-                <hr>
-                <p>Still 02/03/2025 - Finally finished <a href="../goodimages/">the good image gallery</a> and reorganized side windows a bit.</p>
-                <p>02/03/2025 - Fanmade projects so good I had to ride them</p>
-                <hr>
-                <p>27/02/2025 - Added awesome ass 404 page</p>
-                <hr>
-                <p>25/02/2025 - Switched radio from Wikiplayer to a YouTube embed as the former was seemingly breaking things for no reason</p>
-                <hr>
-                <p>24/02/2025 - Introducing: <a href="../computering/">Computering!</a></p>
-            </div>
+            <!-- REMOVED "What's new?" section and the entire news div -->
+
             <div class="title">Slogs</div>
             <p>It's like microblogging but harder and jankier!</p>
             <!-- NOTE: iframe content relies on external files/paths -->
@@ -558,7 +561,7 @@
                     <a href="https://klaudeisbored.neocities.org/" target="_blank"><img src="https://klaudeisbored.neocities.org/button_klaude.gif"></a>
                     <a href="https://www.youtube.com/@Techmoan" target="_blank"><img src="assets/buttons/techmoan.gif" alt="Techmoan"></a>
                     <a href="https://www.youtube.com/@TechnologyConnections" target="_blank"><img src="assets/buttons/technology_connections.gif" alt="Technology Connections"></a>
-                     </marquee>
+                    </marquee>
                 </div>
             </div>
         </div>
@@ -566,65 +569,79 @@
         <div class="clear"></div>
     </main>
     <div class="radio" id="pconly">
-            <div class="title" style="width: 250px; margin: auto;">Radio <a onclick="toggleRadio()">[-]</a></div>
-            <div class="embed-container" style="margin-bottom: -9px;" id="ratio">
-                <div id="player">
-                    <!-- Placeholder for YouTube Player -->
-                    <p style="padding: 10px; font-size: 12px; text-align: center;">[Radio Player is unavailable in this standalone version]</p>
-                </div>
+        <div class="title" style="width: 250px; margin: auto;">Radio <a onclick="toggleRadio()">[-]</a></div>
+        <div class="embed-container" style="margin-bottom: -9px;" id="ratio">
+            <div id="player">
+                <!-- Placeholder for YouTube Player -->
+                <p style="padding: 10px; font-size: 12px; text-align: center;">[Radio Player is unavailable in this standalone version]</p>
             </div>
+        </div>
     </div>
 
     <!-- ALL JAVASCRIPT INLINED HERE -->
     <script>
         // --- Mottos Script ---
         const possibleMottos=[
-            "On the internet, no one knows you're 6 fursonas in a trench coat",
-            "Ironically not made with WYSIWYG",
-            "It USED TO BE a Perfect Blue reference!",
-            "Because unclesumisphantomfunhou.se was too expensive",
-            "Also try rakugaki.xyz!",
-            "Also try trickmint.gay!",
-            "Home of awesome",
-            "Presented in 1 glorious bit",
-            "The Macintosh is neat",
-            "Who needs a dark mode, anyway?",
-            "Maybe it's the way you're dressed",
-            "All that computer I'm buying",
-            "The sky had a Pokémon",
-            "I play computer",
-            "The human brain is just a really complex hypercard stack actually",
-            "As seen on stupid.com!",
-            "Let it beep!",
-            "I think it can digging in the ground for tubers"
-        ];
-
-        const halloMottos=[
-            "Coming out to socialize while grinning grimly!",
-            "There used to be a light mode here, it's gone now",
-            "Rated #1 most terrifying website by Leporiphobics Monthly",
-            "#TeamWerewolves but vampires are cool too",
-            "CREEPYPASTA! AUGH!!",
-            "Coming soon to a haunted Mac near you!",
-            "man door hand hook car door",
-            "Now with up to 50% more hyperrealistic blood and eyes!",
-            "\"Is this a hole I see before me?\" And it echoed like a hole...",
-            "then Mare-e-o appeared but then gaussian blurred away"
+            "i'll be there in spirit",
+            "you're too late i already died",
+            "pls tell me you're okay",
+            "limerence",
+            "you'd look cuter as a femboy",
+            "why?",
+            "what is the point?",
+            "why am i still living?",
+            "i thought you'd know",
+            "hiya",
+            "depression..",
+            "why am i like this",
+            "meaning of life?",
+            "why would you do that to yourself?",
+            "you can do better..",
+            "wfqi on discord",
+            "girl you're so pretty.."
         ];
 
         const mottoDiv = document.getElementById("motto");
 
         function randMotto() {
-            // Using the combined list, but you could switch to halloMottos based on date if desired
-            const allMottos = possibleMottos.concat(halloMottos);
-            const number = Math.floor(Math.random() * allMottos.length);
-            mottoDiv.innerHTML = allMottos[number];
+            const number = Math.floor(Math.random() * possibleMottos.length);
+            mottoDiv.innerHTML = possibleMottos[number];
         }
 
         // Initialize motto on load
         randMotto();
 
-        // --- Last.fm Latest Scrobble Script ---
+        // --- Dark Mode / Theme Script ---
+        function applyTheme(themeName) {
+            const body = document.body;
+            const select = document.getElementById('themeSelect');
+            
+            // Remove all custom theme classes first
+            body.classList.remove('dark-theme');
+
+            if (themeName === 'dark') {
+                body.classList.add('dark-theme');
+            }
+            
+            // Ensure the select box reflects the current theme
+            if (select) select.value = themeName;
+            
+            // Save preference
+            localStorage.setItem('cuxdi-theme', themeName);
+        }
+
+        const themeSelect = document.getElementById('themeSelect');
+        if (themeSelect) {
+            themeSelect.addEventListener('change', (event) => {
+                applyTheme(event.target.value);
+            });
+        }
+
+        // Apply saved theme on load
+        const savedTheme = localStorage.getItem('cuxdi-theme') || 'light';
+        applyTheme(savedTheme);
+
+        // --- Last.fm Latest Scrobble Script (Kept as-is) ---
         function fetchLastFm() {
             const user = 'kuro2427';
             // Using a working CORS proxy to fetch Last.fm data
@@ -650,44 +667,10 @@
         }
         fetchLastFm();
 
-        // --- Mockup/Utility Functions ---
-
-        // Mockup for themeswitcher.js functionality
-        const themeSelect = document.getElementById('themeSelect');
-        const styleLink = document.getElementById('pageStyle');
-        if (themeSelect) {
-            themeSelect.addEventListener('change', (event) => {
-                const selectedTheme = event.target.value;
-                const body = document.body;
-
-                // Simple theme mock logic (apply a class to the body)
-                body.className = '';
-                if (selectedTheme === 'dark') {
-                    // For a real theme, you would load an external CSS file or apply classes
-                    body.classList.add('dark-theme-mock');
-                    // Changed alert() to a console log as per instructions
-                    console.log(`Theme switched to Dark (Mock)`);
-                } else if (selectedTheme === 'spoopy') {
-                    body.classList.add('spoopy-theme-mock');
-                    console.log(`Theme switched to Spoopy (Mock)`);
-                } else { // Classic/light
-                    console.log(`Theme switched to Classic (Mock)`);
-                }
-            });
-        }
-
-        // Mockup for radio toggle (from ytplayer.js logic)
+        // Mockup/Utility Functions
         function toggleRadio() {
-            const radio = document.querySelector('.radio');
-            const toggleLink = radio.querySelector('a');
-
-            if (radio.style.display === 'none') {
-                radio.style.display = 'block';
-                toggleLink.textContent = '[-]';
-            } else {
-                radio.style.display = 'none';
-                toggleLink.textContent = '[+]';
-            }
+            // Placeholder for radio toggle functionality
+            console.log("Radio toggle activated (mockup)");
         }
     </script>
 </body>
