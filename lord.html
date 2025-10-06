@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>cuxdi</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Tailwind is included but primarily custom CSS is used to maintain your aesthetic -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* ---------------------------------------------------------------------- */
+    /* 1. FONT DEFINITIONS (Added font-display: swap for faster loading) */
+    /* ---------------------------------------------------------------------- */
+    @font-face {
+      font-family: "pantelegraph";
+      src: url(https://dl.dropbox.com/scl/fi/toaq54ndzi5gvagpeg2fx/Pantelegraph.ttf?rlkey=g38vji1lqg1e8vx3mpxuvb460&st=htajqoqf);
+      font-display: swap; /* Speeds up text visibility if font loads slowly */
+    }
+    @font-face {
+      font-family: "angelic-war";
+      src: url(https://dl.dropbox.com/scl/fi/lgkntm2zwh6fnff100iqa/AngelicWar.ttf?rlkey=jz323p6o44axm9hc9ozpkccyg&st=5ri76ozy);
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "drukarnia";
+      src: url(https://dl.dropbox.com/scl/fi/51599qosexb0krmdl1u1a/Drukarnia-1674.ttf?rlkey=i5qgy96tuxgganzify98vcegt&st=429s5a8d);
+      font-display: swap;
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* 2. BASE STYLES & LIGHT MODE (Default) */
+    /* ---------------------------------------------------------------------- */
+    :root {
+      --bg-color-light: #fff;
+      --text-color-light: #000;
+      --accent-color-light: #82b8c6;
+      --page-bg-light: url(https://img.freepik.com/premium-vector/gingham-tablecloth-vector-seamless-pattern_255319-1194.jpg);
+      --border-color: #000;
+    }
+
+    /* REMOVED CUSTOM CURSOR: User cursor is now normal/default */
+    html {
+      image-rendering: pixelated;
+    }
+
+    body {
+      background: url(https://files.catbox.moe/gtidkz.png);
+      background-repeat: repeat;
+      background-size: 15%;
+      margin: 0;
+      padding: 20px 0;
+      color: var(--text-color-light);
+      font-family: "pantelegraph", monospace;
+    }
+    body::-webkit-scrollbar { display: none; }
+    body::selection { color: #fff; background-color: var(--accent-color-light); }
+
+    /* everything container */
+    .spirited {
+      background: #000;
+      background-clip: padding-box;
+      border: 18px solid transparent;
+      border-image: url("https://i.ibb.co/HTBsHbLx/lace-border-long.png") 17 round;
+      border-radius: 30px;
+      font-size: 10px;
+      height: auto;
+      margin: auto;
+      overflow: hidden;
+      text-align: justify;
+      width: 95%;
+      max-width: 900px;
+      min-height: 80vh;
+      position: relative;
+    }
+    .spirited::-webkit-scrollbar { display: none; }
+
+    /* Greetings Bar - now static */
+    .greetings {
+      background: var(--bg-color-light);
+      font-size: 10px;
+      padding: 5px 20px;
+      text-align: justify;
+      display: flex;
+      justify-content: flex-end; /* Only showing content on the right now */
+      align-items: center;
+      min-height: 30px;
+    }
+    
+    /* NEW Marquee Location */
+    #interstitial-marquee {
+        background: var(--bg-color-light);
+        padding: 5px 20px;
+        border-bottom: 3px dotted var(--border-color);
+        border-top: 3px dotted var(--border-color);
+    }
+    #interstitial-marquee marquee {
+        color: var(--text-color-light);
+    }
+
+    /* Header */
+    .header {
+      background: url(https://i.ibb.co/Myp7pTKF/webhead.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      padding: 20px 15px;
+      text-align: right;
+      height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .htitle {
+      background: linear-gradient(var(--accent-color-light), #daeef2);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 55px;
+      display: inline-block;
+      filter: drop-shadow(0px 2px 1px #000) drop-shadow(0 -2px 1px #000) drop-shadow(2px 0 1px #000) drop-shadow(-2px 0 1px #000);
+      font-family: "angelic-war", sans-serif;
+      font-size: clamp(30px, 8vw, 52px);
+      letter-spacing: 1.5px;
+      padding-right: 10px;
+    }
+    .hsubtitle {
+      font-family: "drukarnia", sans-serif;
+      font-size: clamp(14px, 4vw, 20px);
+      letter-spacing: 1.5px;
+      text-shadow: 0px 0px 4px var(--bg-color-light);
+      padding-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    /* Alignment */
+    .corpse {
+      background: var(--page-bg-light);
+      box-shadow: inset 0 0 5px #d8d8d8;
+      display: flex;
+      flex-direction: column;
+      height: auto;
+    }
+    @media (min-width: 768px) {
+        .corpse { flex-direction: row; }
+    }
+
+    /* Navigation Panel */
+    .nav, .byf {
+      padding: 10px;
+      text-align: center;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    @media (min-width: 768px) {
+        .nav, .byf { width: 250px; flex-shrink: 0; }
+    }
+    
+    /* Custom Styling for Sidebar Utilities */
+    .location-info {
+        border-top: 1px dotted var(--border-color);
+        border-bottom: 1px dotted var(--border-color);
+        padding: 5px 0;
+        margin-bottom: 10px;
+    }
+    .location-info p {
+        padding: 0;
+        margin: 5px 0;
+    }
+    .location-info svg {
+        stroke: var(--text-color-light);
+    }
+
+    /* Main Content Area */
+    .main {
+      background: var(--bg-color-light);
+      box-shadow: inset 0 0 5px grey;
+      padding: 15px;
+      overflow-y: auto;
+      flex-grow: 1;
+      width: 100%;
+    }
+    .main::-webkit-scrollbar { display: none; }
+
+    /* Content Pages (JS will handle visibility) */
+    .page, #opening {
+      border: 1px solid #696969;
+      border-radius: 5px;
+      box-shadow: inset 0 0 5px #d8d8d8;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+      display: none; /* Initially hidden, JS controls visibility */
+    }
+    #opening { display: block; } /* Default visible page */
+
+    /* Text & Links */
+    h2 {
+      background: url("https://i.ibb.co/HTBsHbLx/lace-border-long.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      color: #fff;
+      font-family: "drukarnia", sans-serif;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      padding: 10px 0px 13px 0px;
+      margin: 0;
+    }
+    p { text-align: left; padding: 0px 15px; margin-bottom: 10px; line-height: 1.4; }
+    ul { padding: 0px 15px; margin: 0; }
+
+    a, a:link, a:active, a:visited { color: var(--text-color-light); text-decoration: none; }
+    
+    /* Updated LI styles for full-button clickability */
+    li {
+      border-bottom: 2px dotted;
+      color: var(--text-color-light);
+      font-size: 10px;
+      line-height: 25px;
+      list-style-type: none;
+      text-decoration: none;
+      text-align: left;
+      padding-left: 0;
+      cursor: pointer;
+      padding: 0px 5px; /* Added padding to LI for consistent clickable area */
+      display: flex; /* Ensure content stays together */
+      align-items: center;
+    }
+    li img {
+        margin-right: 5px;
+        /* Ensure the image element takes space so we can use it for the background swap */
+        width: 16px; 
+        height: 16px;
+        flex-shrink: 0;
+    }
+    li:hover {
+      font-size: 12px;
+      font-weight: 600;
+      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    }
+    i, em { color: var(--text-color-light); font-style: italic; }
+    b { color: var(--text-color-light); font-weight: 600; }
+    .accent-text { color: var(--accent-color-light) !important; } /* Replaced inline color with variable */
+
+    #title {
+      color: #fff;
+      background: var(--border-color);
+      margin: 0px;
+      padding: 3px 15px;
+      overflow: hidden;
+      text-align: right;
+    }
+    
+    /* Styling for the Nekocafe Status Section */
+    #nekocafe-status {
+        text-align: left; 
+        padding: 5px 15px 10px 15px; 
+        border-top: 1px dotted var(--border-color);
+        border-bottom: 1px dotted var(--border-color);
+        margin-bottom: 10px;
+    }
+    #nekocafe-status a {
+        word-break: break-word;
+    }
+
+
+    /* Footer */
+    .silver {
+      border-top: 3px solid var(--border-color);
+      background: var(--bg-color-light);
+      padding: 10px 0px 20px 0px;
+      text-align: center;
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* 3. DARK MODE STYLES (Overrides) */
+    /* ---------------------------------------------------------------------- */
+    body.dark-mode {
+      background: #111; /* Dark background pattern */
+      color: #f0f0f0;
+    }
+
+    body.dark-mode .spirited {
+        border-image: url("https://i.ibb.co/HTBsHbLx/lace-border-long.png") 17 round; /* Keep border image */
+    }
+
+    body.dark-mode .greetings,
+    body.dark-mode .silver {
+      background: #222;
+      border-color: #f0f0f0;
+      color: #f0f0f0;
+    }
+    
+    body.dark-mode #interstitial-marquee {
+        background: #222;
+        border-color: #f0f0f0;
+    }
+
+
+    body.dark-mode .header {
+        border-bottom: 3px solid #f0f0f0;
+        /* Image URL in the header remains untouched, satisfying the request. */
+    }
+
+    body.dark-mode .htitle {
+      background: linear-gradient(#b2e8f6, #f0f0f0); /* Lighter gradient for dark mode */
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0px 2px 1px #222) drop-shadow(0 -2px 1px #222) drop-shadow(2px 0 1px #222) drop-shadow(-2px 0 1px #222);
+    }
+    body.dark-mode .hsubtitle {
+      text-shadow: 0px 0px 4px #222;
+    }
+
+    /* Content wrapper background is now a solid color in Dark Mode */
+    body.dark-mode .corpse {
+      background: #2d2d2d; /* Solid dark gray color */
+      box-shadow: inset 0 0 5px #000;
+    }
+    
+    body.dark-mode .nav h2,
+    body.dark-mode .byf h2 {
+        color: #ddd;
+    }
+    
+    body.dark-mode .location-info {
+        border-color: #f0f0f0;
+    }
+    body.dark-mode .location-info svg {
+        stroke: #f0f0f0;
+    }
+    body.dark-mode #nekocafe-status {
+        border-color: #f0f0f0;
+    }
+
+    body.dark-mode .main {
+      background: #1e1e1e;
+      box-shadow: inset 0 0 5px #000;
+    }
+    
+    body.dark-mode a, body.dark-mode p, body.dark-mode li, body.dark-mode i, body.dark-mode em, body.dark-mode b {
+        color: #f0f0f0;
+    }
+    body.dark-mode li:hover {
+        background-image: linear-gradient(to bottom, rgba(30, 30, 30, 0), rgba(30, 30, 30, 1));
+    }
+    
+    body.dark-mode #title {
+        background: #f0f0f0;
+        color: #1e1e1e;
+    }
+    
+    body.dark-mode .accent-text { 
+        color: #b2e8f6 !important; 
+    }
+    
+    /* NEW: Dark Mode List Item Icon Inversion (Turns the dark swirl to white) */
+    body.dark-mode li img {
+        filter: invert(100%);
+    }
+    
+    /* Toggle Button */
+    #mode-toggle {
+      background: #000;
+      color: #fff;
+      border: 2px solid #fff;
+      padding: 5px 10px;
+      font-size: 10px;
+      font-family: "pantelegraph", monospace;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.2s;
+    }
+    #mode-toggle:hover {
+        background: #82b8c6;
+        color: #000;
+        border-color: #000;
+    }
+    body.dark-mode #mode-toggle {
+        background: #fff;
+        color: #000;
+        border: 2px solid #000;
+    }
+    body.dark-mode #mode-toggle:hover {
+        background: #1a1a1a;
+        color: #f0f0f0;
+        border-color: #f0f0f0;
+    }
+
+    /* Warning Overlay (General) */
+    #warning {
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(5px) brightness(0.1);
+      display: flex; /* Ensures it's centered */
+      align-items: center;
+      justify-content: center;
+      padding: 0 10px;
+    }
+    .discretion {
+      background-color: var(--bg-color-light);
+      border: 3px solid var(--border-color);
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: auto;
+      padding: 30px;
+      position: relative;
+      top: 0;
+      width: 90%;
+      max-width: 500px;
+      overflow: auto;
+      text-align: center;
+    }
+    .discretion p {
+      color: var(--text-color-light);
+      text-align: center;
+      padding: 10px 0;
+    }
+    /* Dark Mode Overlay */
+    body.dark-mode #warning .discretion {
+        background-color: #1e1e1e;
+        border-color: #f0f0f0;
+    }
+    
+    /* Decorator Visibility (Keep original positioning relative to .spirited) */
+    #scissors, #wax, #paper1, #paper2, #thumbtack {
+        position: absolute;
+    }
+    /* ... (Rest of decorator styles omitted for brevity but remain as in previous response) ... */
+    #scissors {
+      background-image: url(https://files.catbox.moe/sp43bs.png); background-size: cover; filter: drop-shadow(0 1mm 1mm rgb(0, 0, 0)); height: 325px; width: 325px; top: 50px; left: -180px; transform: rotate(152deg); z-index: 2;
+    }
+    #wax {
+      background-image: url(https://files.catbox.moe/h2fy68.png); background-size: cover; filter: hue-rotate(195deg); height: 80px; width: 120px; top: 25px; left: 200px; transform: rotate(23deg); z-index: 2;
+    }
+    #paper1 {
+      background-image: url(https://static.vecteezy.com/system/resources/previews/048/773/892/non_2x/stylish-ripped-torn-paper-transparent-texture-free-png.png); background-size: cover; filter: drop-shadow(0 1mm 1mm rgb(0, 0, 0)); height: 245px; width: 355px; top: 35px; left: -80px; transform: rotate(-5deg); z-index: 1;
+    }
+    #paper2 {
+      background-image: url(https://static.vecteezy.com/system/resources/thumbnails/035/889/727/small/white-ripped-paper-png.png); background-size: cover; height: 100px; width: 310px; bottom: 200px; right: -20px; transform: rotate(5deg); z-index: 1; filter: drop-shadow(0 1mm 1mm rgb(0, 0, 0));
+    }
+    #thumbtack {
+      background-image: url(https://www.clker.com/cliparts/B/V/P/X/Z/e/thumbtack-pushpin-2-hi.png); background-size: cover; filter: hue-rotate(195deg) grayscale(80%); height: 40px; width: 50px; bottom: 270px; right: 30px; transform: rotate(5deg); z-index: 2;
+    }
+    @media (max-width: 950px) {
+        #scissors, #wax, #paper1, #paper2, #thumbtack { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    // --- UTILITY FUNCTIONS ---
+
+    // 1. Show/Hide Page Content (For much faster navigation)
+    function showPage(pageId, event) {
+      if (event) {
+        event.preventDefault(); // Prevent default anchor jump
+      }
+      
+      const pages = document.querySelectorAll('.main > div');
+      pages.forEach(page => {
+        page.style.display = 'none';
+      });
+
+      const targetPage = document.getElementById(pageId);
+      if (targetPage) {
+        targetPage.style.display = 'block';
+        // Scroll the main content area to the top for a clean page switch feel
+        const main = document.querySelector('.main');
+        if (main) main.scrollTop = 0;
+      }
+    }
+
+    // 2. Warning Overlay Logic
+    function showOverlay() {
+      const warning = document.getElementById("warning");
+      if (warning) {
+        warning.style.display = 'flex';
+      }
+    }
+    function closeOverlay() {
+      const warning = document.getElementById('warning');
+      if (warning) {
+        warning.style.display = 'none';
+        sessionStorage.setItem('warning_closed', 'true');
+      }
+    }
+
+    // 3. Dark Mode Toggle
+    function toggleDarkMode() {
+      const body = document.body;
+      body.classList.toggle('dark-mode');
+      const isDarkMode = body.classList.contains('dark-mode');
+      localStorage.setItem('dark-mode', isDarkMode ? 'enabled' : 'disabled');
+      document.getElementById('mode-toggle').textContent = isDarkMode ? 'LIGHT MODE' : 'DARK MODE';
+      // Need to re-color the SVGs on toggle
+      updateLocationIconColor(isDarkMode);
+    }
+    
+    // 4. Update SVG Colors based on Dark Mode
+    function updateLocationIconColor(isDarkMode) {
+        const color = isDarkMode ? '#f0f0f0' : '#000';
+        // The icons are SVG elements in the HTML for the clock/pin
+        document.querySelectorAll('.location-info svg').forEach(svg => {
+            svg.style.stroke = color;
+        });
+    }
+
+
+    // 5. Perth Time Display
+    function updatePerthTime() {
+        const now = new Date();
+        const formatter = new Intl.DateTimeFormat('en-AU', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true,
+            timeZone: 'Australia/Perth'
+        });
+        const timeString = formatter.format(now);
+        const timeElement = document.getElementById('perth-time');
+        if (timeElement) {
+            timeElement.textContent = timeString;
+        }
+    }
+    
+    // 6. Nekocafe Status Integration
+    function loadNekocafeStatus() {
+        const username = "cuxdi"; // User requested 'cuxdi'
+        const posts_url = "https://cafe.frizzbees.dev/get_posts/1?name=";
+        const post_url = "https://social.nekoweb.org/post/?id=";
+
+        (async () => {
+            let attempt = 0;
+            const maxAttempts = 3;
+            let success = false;
+
+            while (attempt < maxAttempts && !success) {
+                try {
+                    const request = await fetch(posts_url + username);
+                    let json = await request.json();
+                    json = json[0];
+
+                    if (!json || !json["post"]) {
+                        throw new Error("No recent post found.");
+                    }
+
+                    const timestamp = json["timestamp"] * 1000;
+                    const time = new Date(timestamp).toLocaleTimeString('en-US', { 
+                        hour: '2-digit', 
+                        minute: '2-digit', 
+                        hour12: true 
+                    });
+
+                    const div = document.getElementById("nekocafe-status");
+                    
+                    // Only displaying text and time as requested
+                    div.innerHTML = `
+                        <p class="text-xs font-bold mb-1 accent-text uppercase">[cuxdi's status]</p>
+                        <p id="nekocafe-text" class="text-xs mb-1">
+                            <a href="${post_url + json["id"]}" class="underline">${json["post"]}</a>
+                        </p>
+                        <p id="nekocafe-time" class="text-xs italic text-gray-500 dark:text-gray-400">${time}</p>
+                    `;
+                    success = true;
+
+                } catch (error) {
+                    console.error("Error loading Nekocafe status:", error);
+                    attempt++;
+                    if (attempt < maxAttempts) {
+                        // Exponential backoff implemented manually in fetch loop
+                        await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000)); 
+                    }
+                }
+            }
+        })();
+    }
+
+    // --- INITIALIZATION ---
+    window.onload = function() {
+      // 1. Initial Page Load
+      showPage('opening');
+
+      // 2. Load Dark Mode preference
+      const isDarkMode = localStorage.getItem('dark-mode') === 'enabled';
+      if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+        document.getElementById('mode-toggle').textContent = 'LIGHT MODE';
+      } else {
+        document.getElementById('mode-toggle').textContent = 'DARK MODE';
+      }
+      updateLocationIconColor(isDarkMode); // Set initial SVG color
+
+      // 3. Navigation is now handled by inline onclick events on the <li> tags.
+      // This listener handles the header link only:
+      document.querySelector('.htitle a').addEventListener('click', (e) => showPage('opening', e));
+
+      // 4. Start Perth Time clock
+      updatePerthTime();
+      setInterval(updatePerthTime, 1000);
+      
+      // 5. Load Nekocafe Status
+      loadNekocafeStatus();
+
+      // 6. Show Warning Overlay if not previously closed
+      if (!sessionStorage.getItem('warning_closed')) {
+        setTimeout(showOverlay, 50);
+      }
+    }
+  </script>
+
+  <!-- Audio element -->
+  <audio id="link" src="https://files.catbox.moe/y6llou.mp" preload="auto">your browser does not support the <code>audio</code> element.</audio>
+
+  <!-- Warning overlay (Starts hidden via inline style) -->
+  <div id="warning" style="display: none;">
+    <div class="discretion">
+      <div><img src="https://i.ibb.co/99bKpTMg/ghostly.png" alt="angel" height="200px"></div>
+      <div>
+        <p><u><b>cuxdi</b> is rated <b>M</b> for <b>Mature</b>.</u></p>
+        <p> this scripture contains <i>blasphemy</i>, <i>graphic violence</i>, <i>strong language</i>, <i>sexual content</i>, <i>suicide</i>, <i>mental health</i>, <i>drinking</i>, <i>drugs</i>, and everything our lord deems sinful.</p>
+        <p><b>viewer discretion is advised</b></p>
+      </div>
+      <a class="close" onclick="closeOverlay()">&times;</a>
+    </div>
+  </div>
+
+
+  <div class="spirited">
+
+    <nav class="greetings">
+      <!-- Perth Time Display was moved to the sidebar -->
+    </nav>
+    <div class="header">
+      <!-- Dark Mode toggle moved to .nav -->
+      
+      <!-- Updated site name -->
+      <h1 class="htitle"><a href="#opening" onclick="showPage('opening', event)">cuxdi</a></h1>
+      <h1 class="hsubtitle"><i>prayed to be crucified</i></h1>
+    </div>
+    
+    <!-- NEW: Marquee Location -->
+    <div id="interstitial-marquee">
+        <marquee scrollamount="3">
+            <img src="https://i.ibb.co/bxfDCch/swirl-dark.gif" height="20" alt="swirl">wash me thoroughly from my iniquity and cleanse me from my sin, amen.
+        </marquee>
+    </div>
+
+    <div class="corpse">
+      <div class="nav">
+        
+        <!-- NEW LOCATION FOR DARK MODE TOGGLE -->
+        <div class="flex flex-col items-center p-2 mb-4">
+            <button id="mode-toggle" onclick="toggleDarkMode()" class="w-full text-center"></button>
+        </div>
+        
+        <!-- NEW LOCATION & TIME INFO -->
+        <div class="location-info mb-4">
+            <p class="flex items-center justify-center text-xs mb-1">
+                <!-- Clock Icon (Lucide: Clock) -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span id="perth-time">12:00 AM</span>
+            </p>
+            <p class="flex items-center justify-center text-xs">
+                <!-- Pin Icon (Lucide: MapPin) -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M12 21.7c-4.4 0-8-3.6-8-8c0-5.5 8-13.7 8-13.7s8 8.2 8 13.7c0 4.4-3.6 8-8 8z"/><circle cx="12" cy="12" r="3"/></svg>
+                Western Australia
+            </p>
+        </div>
+        
+        <!-- NEKOCAFE STATUS -->
+        <div id="nekocafe-status"></div>
+
+        <h2>about</h2>
+        <ul>
+          <!-- Added start page to navigation and made whole LI clickable -->
+          <li onclick="showPage('opening', event)">
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="I. ">
+            st. rested
+          </li>
+          <!-- Made whole LI clickable -->
+          <li onclick="showPage('description', event)">
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="I. ">
+            user
+          </li>
+          <!-- Made whole LI clickable -->
+          <li onclick="showPage('statistics', event)">
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="II. ">
+            stats
+          </li>
+          <!-- Made whole LI clickable -->
+          <li onclick="showPage('blog', event)">
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="III. ">
+            blog
+          </li>
+          <!-- Made whole LI clickable -->
+          <li onclick="showPage('policy', event)">
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="III. ">
+            policy
+          </li>
+        </ul>
+        <h2>work</h2>
+        <ul>
+          <li>
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="V. ">
+            <a href="https://filemanager.carrd.co/" target="blank">carrd</a>
+          </li>
+          <li>
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="VI. ">
+            <a href="https://artfight.net/~02179" target="blank">artfight</a>
+          </li>
+          <li>
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="VII. ">
+            <a href="https://x.com/no_02179" target="blank">twitter</a>
+          </li>
+          <li>
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="VIII. ">
+            <a href="https://vgen.co/02179" target="blank">vgen</a>
+          </li>
+        </ul>
+        <h2>market</h2>
+        <ul>
+          <li>
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="IX. ">
+            <a href="https://pixels.crd.co/#hi" target="blank">sitemap</a>
+          </li>
+          <li>
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="X. ">
+            <a href="https://pixels.crd.co/#hi" target="blank">pixels</a>
+          </li>
+        </ul>
+        <div></div>
+      </div>
+      <div class="main">
+        <!-- Content Pages -->
+        
+        <div class="page" id="description">
+          <h3 id="title">character</h3>
+          <p>[placeholder]</p>
+          <p><b class="accent-text">shows</b> >> studio ghibli, jjk, dbz, <i>sanrio</i>, <i>supernatural</i>, haikyuu, mp100, <i>one piece</i>, moon knight.</p>
+          <p><b class="accent-text">games</b> >> ts4, sonic, ut/dr, <i>minecraft</i>, dbd, sdv, <i>ffXIV</i>, <i>resident evil</i>, overwatch, animal crossing.</p>
+          <p><b class="accent-text">people</b> >> <i>ghostface</i>, aizawa shouta, fushiguro toji, <i>jeon jungkook</i>, leon s. kennedy, <i>ushijima wakatoshi</i>.</p>
+        </div>
+
+        <div class="page" id="statistics">
+          <h3 id="title">statistics</h3>
+          <table id="calendar">
+            <tbody>
+              <tr>
+                <td colspan="7" bgcolor="#c7eaf2"><strong>2025年&nbsp;9月</strong></td>
+              </tr>
+              <tr>
+                <td bgcolor="#daeef2">-</td>
+                <td bgcolor="#daeef2">-</td>
+                <td bgcolor="#daeef2">-</td>
+                <td bgcolor="#daeef2">-</td>
+                <td bgcolor="#daeef2">1</td>
+                <td bgcolor="#daeef2">2</td>
+                <td bgcolor="#d7d7d7">3</td>
+              </tr>
+              <tr>
+                <td bgcolor="#daeef2">4</td>
+                <td bgcolor="#daeef2">5</td>
+                <td bgcolor="#daeef2">6</td>
+                <td bgcolor="#daeef2">7</td>
+                <td bgcolor="#daeef2">8</td>
+                <td bgcolor="#daeef2">9</td>
+                <td bgcolor="#daeef2">10</td>
+              </tr>
+              <tr>
+                <td bgcolor="#daeef2">11</td>
+                <td bgcolor="#daeef2">12</td>
+                <td bgcolor="#daeef2">13</td>
+                <td bgcolor="#daeef2">14</td>
+                <td bgcolor="#daeef2">15</td>
+                <td bgcolor="#daeef2">16</td>
+                <td bgcolor="#daeef2">17</td>
+              </tr>
+              <tr>
+                <td bgcolor="#daeef2">18</td>
+                <td bgcolor="#daeef2">19</td>
+                <td bgcolor="#daeef2">21</td>
+                <td bgcolor="#daeef2">22</td>
+                <td bgcolor="#daeef2">23</td>
+                <td bgcolor="#daeef2">24</td>
+                <td bgcolor="#daeef2">25</td>
+              </tr>
+              <tr>
+                <td bgcolor="#daeef2">26</td>
+                <td bgcolor="#daeef2">27</td>
+                <td bgcolor="#daeef2">28</td>
+                <td bgcolor="#daeef2">20</td>
+                <td bgcolor="#daeef2">30</td>
+                <td bgcolor="#daeef2">-</td>
+                <td bgcolor="#daeef2">-</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>[placeholder]</p>
+          <p>[placeholder]</p>
+        </div>
+        
+        <div class="page" id="policy">
+          <h3 id="title">artwork policy</h3>
+          <p><b class="accent-text">terms of service.</b>
+            * please repost and share my artwork with credit! more exposure means more time i can work to better my art and any future commissions you might have with me.
+            * i will post any artwork on my portfolio/social media unless requested otherwise.
+            * i am 18+ and allow those that are above 18 to request sexual content.
+            * do not request me to draw snuff, hate art, underage characters in sexual pieces, and stolen art.
+          <p>
+          <p><b class="accent-text">communicate w/ me.</b> please contact me through VGen's direct message or Discord, i am open to conversations on both apps. i also have a twitter that you can try to message on but there are limitations that the website has.
+          <p>
+          <p><b class="accent-text">refunds.</b> i do not accept refunds after i have started a piece. i will allow full refunds for work i cannot get to in time or that have not been started. you could be added to a waitlist if you wish to still receive a commission after i couldn't get to it.</p>
+          <p><b class="accent-text">usage & IPR.</b> please only use my works for personal use unless explicitly stated otherwise or agreed upon during commission process. i am not responsible for the character, who you are, or what you represent. do not use my art for NFT, AI learning, or other generative content. i retain the rights of my intellectual property, use of my work without permission is bound to Copyright© Infringement.</p>
+          <p>read full list <a href="https://vgen.co/02179" class="accent-text" target="blank">here</a>.</p>
+        </div>
+
+        <div class="page" id="blog">
+          <h3 id="title">revelations</h3>
+          <p>[placeholder]</p>
+          <h3 id="title">revelation 1:4</h3>
+          <p>[placeholder]</p>
+          <h3 id="title">revelation 9:7</h3>
+          <p>[placeholder]</p>
+        </div>
+        
+        <!-- Default Landing Page -->
+        <div id="opening">
+          <h3 id="title">st. rested</h3>
+          <div class="content">
+            <div>
+              <p>hiya, i'm <b>cuxdi</b>.</p>
+              <p>this is my work in progress site that I will work on. It's in very very early stages, and expect bugs or empty pages. I've been doing web development for a long time now but I never had a small personal website like this, only big projects. This website has been through many styles and version but i think I like this one to be the best. I'd be proud to show it to someone.</p>
+            </div>
+            <img src="https://i.ibb.co/d0tf4cS7/02179-archive.png" alt="portrait" title="what went wrong?">
+          </div>
+        </div>
+        <div></div>
+      </div>
+      <div class="byf">
+        <div id="section">
+          <h2>buttons</h2>
+          <p>These are people who are my friends, mutuals, sites I like/think are cool, and just random buttons i find on the web!</p>
+        </div>
+        <marquee scrollamount="3" onmouseover="this.stop()" onmouseout="this.start()">
+          <a href="https://philia995.neocities.org/" target="_blank">
+            <img src="https://files.catbox.moe/h6gccq.png" alt="Philia995">
+          </a>
+          <a href="https://riddler.nekoweb.org" target="_blank"><img src="https://riddler.nekoweb.org/img/b/v2.gif" alt="Riddler"></a>
+          <a href="https://arataka.moe/" target="_blank"><img alt="Laith Rai7an" src="https://arataka.moe/image/button/arataka-b.gif" /></a>
+          <a href="https://sheep.nekoweb.org/" target="_blank"><img src="https://sheep.nekoweb.org/assets/mybutton.gif" alt="Sheep"></a>
+        </marquee>
+        <div id="section">
+          <h2>blah</h2>
+          <p>[placeholder]</p>
+          <center>link me</center>
+          <a href="https://02179.nekoweb.org/" target="_blank"><img src="https://i.ibb.co/4wm4W966/stitched-button.png" alt="02179"></a>
+          <textarea resize:"none"><a href="https://02179.nekoweb.org/" target="_blank"><img src="https://i.ibb.co/4wm4W966/stitched-button.png" alt="02179"></a></textarea>
+          <br>
+        </div>
+        <br>
+        <div id="section">
+          <h2>guests</h2>
+          <p>guestbook here</p>
+        </div>
+      </div>
+    </div>
+    <div class="forfun">
+      <a href="https://nekoweb.org/follow/02179" target="_blank">
+        <h2>condemn</h2>
+      </a>
+      <p>[placeholder]</p>
+    </div>
+
+    <div class="silver">
+      <p><a href="https://www.w3schools.com/" target="_blank">w3s</a> | <a href="https://code.visualstudio.com/" target="_blank">vscode</a> | <a href="https://www.w3schools.com/" target="_blank">information</a> | <a href="mailto:toraoyu@gmail.com">email</a></p>
+      <p style="font-size: 12px">copyright <span style="font:bold">©</span> 2025 <b>cuxdi</b>, all rights reserved.</p>
+      <p> <i>this site is a work in progress, alot is subject to change, may the lord bless you.</i></p>
+    </div>
+    <!-- Decorator images (positioning is relative to .spirited container) -->
+    <div id="scissors"></div>
+    <div id="wax"></div>
+    <div id="paper1"></div>
+    <div id="paper2"></div>
+    <div id="thumbtack"></div>
+  </div>
+</body>
+
+</html>
