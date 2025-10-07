@@ -1,643 +1,976 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<title>C U X D I</title>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Fira+Code:wght@400;700&display=swap"
-			rel="stylesheet"
-		/>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<style>
-            /* Nord Theme Color Palette */
-            :root {
-                --sidebar-width: 280px;
-                --nord0: #2E3440; /* Polar Night - Darkest BG */
-                --nord1: #3B4252; /* Polar Night - Sidebar BG */
-                --nord3: #4C566A; /* Polar Night - Faded Color (Border/Lines) */
-                --nord4: #D8DEE9; /* Snow Storm - Primary Text */
-                --nord5: #E5E9F0; /* Snow Storm - Light Text */
-                --nord6: #ECEFF4; /* Snow Storm - Lightest */
-                --nord8: #BF616A; /* Aurora - Red */
-                --nord10: #EBCB8B; /* Aurora - Yellow */
-                --nord11: #A3BE8C; /* Aurora - Green */
-                --nord13: #B48EAD; /* Aurora - Violet (Primary Accent) */
-                --nord14: #8FBCBB; /* Frost - Cyan (Directory Accent) */
-                
-                /* Mapped Variables */
-                --primary-color: var(--nord4);
-                --secondary-color: var(--nord5);
-                --faded-color: var(--nord3);
-                --background-color: var(--nord0); 
-                --accent-color: var(--nord13); 
-                --font-primary: 'Bodoni Moda', serif;
-                --font-sidebar: 'Fira Code', monospace;
-                --font-content: sans-serif;
-            }
 
-            /* CSS Animation for subtle sway */
-            @keyframes sway {
-                0% { transform: rotate(0.5deg); }
-                50% { transform: rotate(-0.5deg); }
-                100% { transform: rotate(0.5deg); }
-            }
+<head>
+  <title>cuxdi</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Tailwind is included but primarily custom CSS is used to maintain your aesthetic -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>NekoType="white"</script>
+  <h1 id="nl"><script src="https://webneko.net/n20171213.js"></script></h1>
 
-            html, body {
-                margin: 0;
-                padding: 0;
-                height: 100%;
-                font-family: var(--font-content);
-                background-color: var(--background-color);
-                color: var(--primary-color);
-                transition: background-color 0.3s, color 0.3s;
-            }
-            
-            /* Light Mode (Inverted Nord - less common but functional) */
-            body.light-mode {
-                --primary-color: var(--nord0);
-                --secondary-color: var(--nord1);
-                --background-color: var(--nord6);
-                --accent-color: #7955B0; /* Darker Violet */
-            }
+  <style>
+    /* ---------------------------------------------------------------------- */
+    /* 1. FONT DEFINITIONS (Added font-display: swap for faster loading) */
+    /* ---------------------------------------------------------------------- */
+    @font-face {
+      font-family: "pantelegraph";
+      src: url(https://dl.dropbox.com/scl/fi/toaq54ndzi5gvagpeg2fx/Pantelegraph.ttf?rlkey=g38vji1lqg1e8vx3mpxuvb460&st=htajqoqf);
+      font-display: swap; /* Speeds up text visibility if font loads slowly */
+    }
+    @font-face {
+      font-family: "angelic-war";
+      src: url(https://dl.dropbox.com/scl/fi/lgkntm2zwh6fnff100iqa/AngelicWar.ttf?rlkey=jz323p6o44axm9hc9ozpkccyg&st=5ri76ozy);
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "drukarnia";
+      src: url(https://dl.dropbox.com/scl/fi/51599qosexb0krmdl1u1a/Drukarnia-1674.ttf?rlkey=i5qgy96tuxgganzify98vcegt&st=429s5a8d);
+      font-display: swap;
+    }
 
-            a {
-                color: var(--accent-color);
-                text-decoration: none;
-                transition: color 0.2s;
-            }
-            a:hover {
-                color: var(--nord11); /* Green on hover */
-            }
+    /* ---------------------------------------------------------------------- */
+    /* 2. BASE STYLES & LIGHT MODE (Default) */
+    /* ---------------------------------------------------------------------- */
+    :root {
+      --bg-color-light: #fff;
+      --text-color-light: #000;
+      --accent-color-light: #82b8c6;
+      --page-bg-light: url(https://img.freepik.com/premium-vector/gingham-tablecloth-vector-seamless-pattern_255319-1194.jpg);
+      --border-color: #000;
+    }
 
-            /* Main Layout Structure (Sidebar and Content) */
-            .container {
-                display: flex;
-                min-height: 100vh;
-            }
+    /* REMOVED CUSTOM CURSOR: User cursor is now normal/default */
+    html {
+      image-rendering: pixelated;
+    }
 
-            .sidebar {
-                width: var(--sidebar-width);
-                flex-shrink: 0;
-                padding: 20px;
-                background-color: var(--nord1); /* Darker sidebar */
-                border-right: 1px solid var(--nord3);
-                position: relative;
-                z-index: 20;
-                box-sizing: border-box;
-                display: flex;
-                flex-direction: column;
-                font-family: var(--font-sidebar); /* Monospace for terminal feel */
-            }
-            body.light-mode .sidebar {
-                background-color: var(--nord5);
-                border-right: 1px solid var(--nord4);
-            }
-            
-            .content {
-                flex-grow: 1;
-                padding: 40px;
-                overflow-y: auto;
-                font-size: 1.1em;
-                line-height: 1.6;
-            }
-            .content h2 {
-                color: var(--nord14); /* Cyan for headings */
-                border-bottom: 1px solid var(--nord3);
-                padding-bottom: 5px;
-                font-family: var(--font-primary);
-                font-size: 2em;
-            }
+    body {
+      background: url(https://files.catbox.moe/gtidkz.png);
+      background-repeat: repeat;
+      background-size: 15%;
+      margin: 0;
+      padding: 20px 0;
+      color: var(--text-color-light);
+      font-family: "pantelegraph", monospace;
+    }
+    body::-webkit-scrollbar { display: none; }
+    body::selection { color: #fff; background-color: var(--accent-color-light); }
 
-            /* Title and Tagline Box */
-            .title-wrapper {
-                margin-bottom: 20px;
-            }
-            .title {
-                font-family: var(--font-primary);
-                font-size: 2.5em;
-                text-transform: uppercase;
-                margin: 0;
-                line-height: 1;
-                color: var(--nord10); /* Yellow for the main title */
-            }
-            
-            /* Non-Scrolling Tagline Box (Replaces Marquee) */
-            .tagline-box {
-                border: 1px solid var(--accent-color);
-                padding: 5px 10px;
-                margin-bottom: 30px;
-                font-size: 0.85em;
-                color: var(--nord11); /* Green for tagline text */
-                background-color: var(--nord0);
-                text-align: center;
-                cursor: pointer; /* Indicates it's interactive */
-                animation: sway 4s ease-in-out infinite alternate; /* Apply sway */
-                user-select: none; /* Prevent text selection on double-click */
-            }
+    /* everything container */
+    .spirited {
+      background: #000;
+      background-clip: padding-box;
+      border: 18px solid transparent;
+      border-image: url("https://i.ibb.co/HTBsHbLx/lace-border-long.png") 17 round;
+      border-radius: 30px;
+      font-size: 10px;
+      height: auto;
+      margin: auto;
+      overflow: hidden;
+      text-align: justify;
+      width: 95%;
+      max-width: 900px;
+      min-height: 80vh;
+      position: relative;
+    }
+    .spirited::-webkit-scrollbar { display: none; }
 
-            /* Time and Location Block Styling */
-            .time-location-box {
-                font-family: var(--font-sidebar);
-                font-size: 0.9em;
-                color: var(--nord14); /* Cyan text */
-                padding: 10px 0;
-                border-top: 1px solid var(--nord3);
-                border-bottom: 1px solid var(--nord3);
-                margin-bottom: 30px;
-            }
-            .location-line {
-                margin-top: 5px;
-            }
-            
-            /* --- UPDATED Status Block Styling --- */
-            .status-wrapper {
-                margin: 0 0 20px 0; /* Reduced margin */
-                padding: 8px; /* Smaller padding */
-                border: 1px solid var(--nord3); /* Subtler border */
-                font-family: var(--font-sidebar);
-                background-color: var(--nord0); /* Darker background for contrast */
-                font-size: 0.8em; /* Smaller font size for integration */
-            }
-            .status-wrapper h3 {
-                /* New, smaller header */
-                color: var(--nord11); /* Green for status title */
-                font-size: 0.85em; 
-                margin: 0 0 3px 0;
-                padding: 0;
-                display: block;
-                border-bottom: 1px dotted var(--nord3);
-                padding-bottom: 3px;
-            }
-            #nekocafe-text {
-                font-size: 1em; /* Relative to parent 0.8em */
-                margin: 5px 0 3px 0;
-                color: var(--nord4); /* Primary text color for the message */
-                word-wrap: break-word; 
-            }
-            #nekocafe-text a {
-                color: var(--nord4); /* Keep message link color primary */
-            }
-            #nekocafe-time {
-                font-size: 0.9em; /* Relative to parent 0.8em */
-                margin: 0;
-                color: var(--nord14); /* Cyan for time/details */
-                text-align: right;
-            }
+    /* Greetings Bar - now static */
+    .greetings {
+      background: var(--bg-color-light);
+      font-size: 10px;
+      padding: 5px 20px;
+      text-align: justify;
+      display: flex;
+      justify-content: flex-end; /* Only showing content on the right now */
+      align-items: center;
+      min-height: 30px;
+    }
+    
+    /* NEW Marquee Location */
+    #interstitial-marquee {
+        background: var(--bg-color-light);
+        padding: 5px 20px;
+        border-bottom: 3px dotted var(--border-color);
+        border-top: 3px dotted var(--border-color);
+    }
+    #interstitial-marquee marquee {
+        color: var(--text-color-light);
+    }
 
-            /* Navigation Tree Styling (Directory Look) */
-            .tree {
-                list-style: none;
-                padding: 0;
-                margin: 0 0 30px 0;
-                flex-grow: 1;
-            }
-            .tree li {
-                margin: 5px 0;
-            }
-            
-            /* Directory Spans */
-            .tree > li > span {
-                display: block;
-                font-family: var(--font-sidebar);
-                font-size: 1em;
-                color: var(--nord14); /* Cyan for directories */
-                margin-top: 15px;
-                margin-bottom: 5px;
-                cursor: default;
-                /* Simulate a directory structure prefix */
-                border-bottom: none;
-                padding-bottom: 0;
-            }
-            .tree > li > span::before {
-                content: "[DIR] /";
-                color: var(--nord14);
-            }
-            
-            .tree ul {
-                list-style: none;
-                padding-left: 20px;
-                margin: 5px 0;
-            }
-            .tree a {
-                display: block;
-                padding: 3px 0;
-                font-size: 0.9em;
-                color: var(--nord4); /* White/Light gray for files */
-            }
-            .tree a:hover {
-                color: var(--nord10); /* Yellow on hover */
-                text-decoration: underline;
-            }
-            /* Active link style */
-            .tree a.active {
-                font-weight: bold;
-                color: var(--nord8); /* Red for active file */
-            }
-            .tree a::before {
-                content: "> "; /* Simple file marker */
-                color: var(--accent-color);
-            }
+    /* Header */
+    .header {
+      background: url(https://i.ibb.co/Myp7pTKF/webhead.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      padding: 20px 15px;
+      text-align: right;
+      height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .htitle {
+      background: linear-gradient(var(--accent-color-light), #daeef2);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 55px;
+      display: inline-block;
+      filter: drop-shadow(0px 2px 1px #000) drop-shadow(0 -2px 1px #000) drop-shadow(2px 0 1px #000) drop-shadow(-2px 0 1px #000);
+      font-family: "angelic-war", sans-serif;
+      font-size: clamp(30px, 8vw, 52px);
+      letter-spacing: 1.5px;
+      padding-right: 10px;
+    }
+    .hsubtitle {
+      font-family: "drukarnia", sans-serif;
+      font-size: clamp(14px, 4vw, 20px);
+      letter-spacing: 1.5px;
+      text-shadow: 0px 0px 4px var(--bg-color-light);
+      padding-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    /* Alignment */
+    .corpse {
+      background: var(--page-bg-light);
+      box-shadow: inset 0 0 5px #d8d8d8;
+      display: flex;
+      flex-direction: column;
+      height: auto;
+    }
+    @media (min-width: 768px) {
+        .corpse { flex-direction: row; }
+    }
+
+    /* Navigation Panel */
+    .nav, .byf {
+      padding: 10px;
+      text-align: center;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    @media (min-width: 768px) {
+        .nav, .byf { width: 250px; flex-shrink: 0; }
+    }
+    
+    /* Custom Styling for Sidebar Utilities */
+    .location-info {
+        border-top: 1px dotted var(--border-color);
+        border-bottom: 1px dotted var(--border-color);
+        padding: 5px 0;
+        margin-bottom: 10px;
+    }
+    .location-info p {
+        padding: 0;
+        margin: 5px 0;
+    }
+    .location-info svg {
+        stroke: var(--text-color-light);
+    }
+
+    /* Main Content Area */
+    .main {
+      background: var(--bg-color-light);
+      box-shadow: inset 0 0 5px grey;
+      padding: 15px;
+      overflow-y: auto;
+      flex-grow: 1;
+      width: 100%;
+    }
+    .main::-webkit-scrollbar { display: none; }
+
+    /* Content Pages (JS will handle visibility) */
+    .page, #opening {
+      border: 1px solid #696969;
+      border-radius: 5px;
+      box-shadow: inset 0 0 5px #d8d8d8;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+      display: none; /* Initially hidden, JS controls visibility */
+    }
+    #opening { display: block; } /* Default visible page */
+
+    /* Text & Links */
+    h2 {
+      background: url("https://i.ibb.co/HTBsHbLx/lace-border-long.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      color: #fff;
+      font-family: "drukarnia", sans-serif;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      padding: 10px 0px 13px 0px;
+      margin: 0;
+    }
+    p { text-align: left; padding: 0px 15px; margin-bottom: 10px; line-height: 1.4; font-size: 1.1em; }
+    ul { padding: 0px 15px; margin: 0; }
+
+    a, a:link, a:active, a:visited { color: var(--text-color-light); text-decoration: none; }
+    
+    /* Updated LI styles for full-button clickability */
+    li {
+      border-bottom: 2px dotted;
+      color: var(--text-color-light);
+      font-size: 10px;
+      line-height: 25px;
+      list-style-type: none;
+      text-decoration: none;
+      text-align: left;
+      padding-left: 0;
+      cursor: pointer;
+      padding: 0px 5px; /* Added padding to LI for consistent clickable area */
+      display: flex; /* Ensure content stays together */
+      align-items: center;
+    }
+    li img {
+        margin-right: 5px;
+        /* Ensure the image element takes space so we can use it for the background swap */
+        width: 16px; 
+        height: 16px;
+        flex-shrink: 0;
+    }
+    li:hover {
+      font-size: 12px;
+      font-weight: 600;
+      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    }
+    i, em { color: var(--text-color-light); font-style: italic; }
+    b { color: var(--text-color-light); font-weight: 600; }
+    .accent-text { color: var(--accent-color-light) !important; } /* Replaced inline color with variable */
+
+    #title {
+      color: #fff;
+      background: var(--border-color);
+      margin: 0px;
+      padding: 3px 15px;
+      overflow: hidden;
+      text-align: right;
+    }
+    
+    /* Styling for the Nekocafe Status Section */
+    #nekocafe-status {
+        text-align: left; 
+        padding: 5px 15px 10px 15px; 
+        border-top: 1px dotted var(--border-color);
+        border-bottom: 1px dotted var(--border-color);
+        margin-bottom: 10px;
+    }
+    #nekocafe-status a {
+        word-break: break-word;
+    }
 
 
-            /* Theme Stamp/Toggle */
-            .stamp {
-                display: block;
-                border: 2px dashed var(--accent-color);
-                text-align: center;
-                padding: 8px;
-                margin-top: 20px;
-                font-size: 0.9em;
-                cursor: pointer;
-                color: var(--primary-color);
-                background: rgba(180, 142, 173, 0.1); /* Subtle violet background */
-            }
-            .stamp:hover {
-                background: rgba(180, 142, 173, 0.3);
-            }
+    /* Footer */
+    .silver {
+      border-top: 3px solid var(--border-color);
+      background: var(--bg-color-light);
+      padding: 10px 0px 20px 0px;
+      text-align: center;
+    }
 
-            /* Footer */
-            .bottom-center-text {
-                text-align: center;
-                font-size: 0.75em;
-                color: var(--faded-color);
-                padding-top: 10px;
-            }
+    /* ---------------------------------------------------------------------- */
+    /* 3. DARK MODE STYLES (Overrides) */
+    /* ---------------------------------------------------------------------- */
+    body.dark-mode {
+      background: #111; /* Dark background pattern */
+      color: #f0f0f0;
+    }
 
-            /* Decorative Elements */
-            .phone-img, .top-left-img, .title-bg-img {
-                display: none; 
-            }
+    body.dark-mode .spirited {
+        border-image: url("https://i.ibb.co/HTBsHbLx/lace-border-long.png") 17 round; /* Keep border image */
+    }
 
-            /* Vertical Marquee Styling */
-            .vertical-marquee {
-                position: fixed;
-                top: 0;
-                left: calc(var(--sidebar-width) + 20px);
-                height: 100vh;
-                width: 100px;
-                overflow: hidden;
-                opacity: 0.08;
-                font-size: 0.8em;
-                line-height: 1.2;
-                pointer-events: none;
-                z-index: 1;
-                color: var(--accent-color);
-                writing-mode: vertical-rl;
-                text-orientation: mixed;
-                font-family: var(--font-sidebar);
-            }
-            .vertical-marquee span {
-                white-space: nowrap;
-                display: block;
-                animation: verticalScroll 60s linear infinite;
-            }
-            @keyframes verticalScroll {
-                0% { transform: translateY(0); }
-                100% { transform: translateY(-100%); }
-            }
+    body.dark-mode .greetings,
+    body.dark-mode .silver {
+      background: #222;
+      border-color: #f0f0f0;
+      color: #f0f0f0;
+    }
+    
+    body.dark-mode #interstitial-marquee {
+        background: #222;
+        border-color: #f0f0f0;
+    }
 
-            /* Mobile Responsiveness */
-            @media (max-width: 768px) {
-                .container {
-                    flex-direction: column;
+
+    body.dark-mode .header {
+        border-bottom: 3px solid #f0f0f0;
+        /* Image URL in the header remains untouched, satisfying the request. */
+    }
+
+    body.dark-mode .htitle {
+      background: linear-gradient(#b2e8f6, #f0f0f0); /* Lighter gradient for dark mode */
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0px 2px 1px #222) drop-shadow(0 -2px 1px #222) drop-shadow(2px 0 1px #222) drop-shadow(-2px 0 1px #222);
+    }
+    body.dark-mode .hsubtitle {
+      text-shadow: 0px 0px 4px #222;
+    }
+
+    /* Content wrapper background is now a solid color in Dark Mode */
+    body.dark-mode .corpse {
+      background: #2d2d2d; /* Solid dark gray color */
+      box-shadow: inset 0 0 5px #000;
+    }
+    
+    body.dark-mode .nav h2,
+    body.dark-mode .byf h2 {
+        color: #ddd;
+    }
+    
+    body.dark-mode .location-info {
+        border-color: #f0f0f0;
+    }
+    body.dark-mode .location-info svg {
+        stroke: #f0f0f0;
+    }
+    body.dark-mode #nekocafe-status {
+        border-color: #f0f0f0;
+    }
+
+    body.dark-mode .main {
+      background: #1e1e1e;
+      box-shadow: inset 0 0 5px #000;
+    }
+    
+    body.dark-mode a, body.dark-mode p, body.dark-mode li, body.dark-mode i, body.dark-mode em, body.dark-mode b {
+        color: #f0f0f0;
+    }
+    body.dark-mode li:hover {
+        background-image: linear-gradient(to bottom, rgba(30, 30, 30, 0), rgba(30, 30, 30, 1));
+    }
+    
+    body.dark-mode #title {
+        background: #f0f0f0;
+        color: #1e1e1e;
+    }
+    
+    body.dark-mode .accent-text { 
+        color: #b2e8f6 !important; 
+    }
+    
+    /* NEW: Dark Mode List Item Icon Inversion (Turns the dark swirl to white) */
+    body.dark-mode li img {
+        filter: invert(100%);
+    }
+    
+    /* Toggle Button */
+    #mode-toggle {
+      background: #000;
+      color: #fff;
+      border: 2px solid #fff;
+      padding: 5px 10px;
+      font-size: 10px;
+      font-family: "pantelegraph", monospace;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.2s;
+    }
+    #mode-toggle:hover {
+        background: #82b8c6;
+        color: #000;
+        border-color: #000;
+    }
+    body.dark-mode #mode-toggle {
+        background: #fff;
+        color: #000;
+        border: 2px solid #000;
+    }
+    body.dark-mode #mode-toggle:hover {
+        background: #1a1a1a;
+        color: #f0f0f0;
+        border-color: #f0f0f0;
+    }
+
+    /* Warning Overlay (General) */
+    #warning {
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(5px) brightness(0.1);
+      display: flex; /* Ensures it's centered */
+      align-items: center;
+      justify-content: center;
+      padding: 0 10px;
+    }
+    .discretion {
+      background-color: var(--bg-color-light);
+      border: 3px solid var(--border-color);
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: auto;
+      padding: 30px;
+      position: relative;
+      top: 0;
+      width: 90%;
+      max-width: 500px;
+      overflow: auto;
+      text-align: center;
+    }
+    .discretion p {
+      color: var(--text-color-light);
+      text-align: center;
+      padding: 10px 0;
+    }
+    /* Dark Mode Overlay */
+    body.dark-mode #warning .discretion {
+        background-color: #1e1e1e;
+        border-color: #f0f0f0;
+    }
+    
+    /* Decorator Visibility (Keep original positioning relative to .spirited) */
+    #scissors, #wax, #paper1, #paper2, #thumbtack {
+        position: absolute;
+    }
+    /* ... (Rest of decorator styles omitted for brevity but remain as in previous response) ... */
+    #scissors {
+      background-image: url(https://files.catbox.moe/sp43bs.png); background-size: cover; filter: drop-shadow(0 1mm 1mm rgb(0, 0, 0)); height: 325px; width: 325px; top: 50px; left: -180px; transform: rotate(152deg); z-index: 2;
+    }
+    #wax {
+      background-image: url(https://files.catbox.moe/h2fy68.png); background-size: cover; filter: hue-rotate(195deg); height: 80px; width: 120px; top: 25px; left: 200px; transform: rotate(23deg); z-index: 2;
+    }
+    #paper1 {
+      background-image: url(https://static.vecteezy.com/system/resources/previews/048/773/892/non_2x/stylish-ripped-torn-paper-transparent-texture-free-png.png); background-size: cover; filter: drop-shadow(0 1mm 1mm rgb(0, 0, 0)); height: 245px; width: 355px; top: 35px; left: -80px; transform: rotate(-5deg); z-index: 1;
+    }
+    #paper2 {
+      background-image: url(https://static.vecteezy.com/system/resources/thumbnails/035/889/727/small/white-ripped-paper-png.png); background-size: cover; height: 100px; width: 310px; bottom: 200px; right: -20px; transform: rotate(5deg); z-index: 1; filter: drop-shadow(0 1mm 1mm rgb(0, 0, 0));
+    }
+    #thumbtack {
+      background-image: url(https://www.clker.com/cliparts/B/V/P/X/Z/e/thumbtack-pushpin-2-hi.png); background-size: cover; filter: hue-rotate(195deg) grayscale(80%); height: 40px; width: 50px; bottom: 270px; right: 30px; transform: rotate(5deg); z-index: 2;
+    }
+    @media (max-width: 950px) {
+        #scissors, #wax, #paper1, #paper2, #thumbtack { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    // --- UTILITY FUNCTIONS ---
+
+    // 1. Show/Hide Page Content (For much faster navigation)
+    function showPage(pageId, event) {
+      if (event) {
+        event.preventDefault(); // Prevent default anchor jump
+      }
+      
+      const pages = document.querySelectorAll('.main > div');
+      pages.forEach(page => {
+        page.style.display = 'none';
+      });
+
+      const targetPage = document.getElementById(pageId);
+      if (targetPage) {
+        targetPage.style.display = 'block';
+        // Scroll the main content area to the top for a clean page switch feel
+        const main = document.querySelector('.main');
+        if (main) main.scrollTop = 0;
+      }
+    }
+
+    // 2. Warning Overlay Logic
+    function showOverlay() {
+      const warning = document.getElementById("warning");
+      if (warning) {
+        warning.style.display = 'flex';
+      }
+    }
+    function closeOverlay() {
+      const warning = document.getElementById('warning');
+      if (warning) {
+        warning.style.display = 'none';
+        sessionStorage.setItem('warning_closed', 'true');
+      }
+    }
+
+    // 3. Dark Mode Toggle
+    function toggleDarkMode() {
+      const body = document.body;
+      body.classList.toggle('dark-mode');
+      const isDarkMode = body.classList.contains('dark-mode');
+      localStorage.setItem('dark-mode', isDarkMode ? 'enabled' : 'disabled');
+      document.getElementById('mode-toggle').textContent = isDarkMode ? 'LIGHT MODE' : 'DARK MODE';
+      // Need to re-color the SVGs on toggle
+      updateLocationIconColor(isDarkMode);
+    }
+    
+    // 4. Update SVG Colors based on Dark Mode
+    function updateLocationIconColor(isDarkMode) {
+        const color = isDarkMode ? '#f0f0f0' : '#000';
+        // The icons are SVG elements in the HTML for the clock/pin
+        document.querySelectorAll('.location-info svg').forEach(svg => {
+            svg.style.stroke = color;
+        });
+    }
+
+
+    // 5. Perth Time Display
+    function updatePerthTime() {
+        const now = new Date();
+        const formatter = new Intl.DateTimeFormat('en-AU', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true,
+            timeZone: 'Australia/Perth'
+        });
+        const timeString = formatter.format(now);
+        const timeElement = document.getElementById('perth-time');
+        if (timeElement) {
+            timeElement.textContent = timeString;
+        }
+    }
+    
+    // 6. Nekocafe Status Integration
+    function loadNekocafeStatus() {
+        const username = "cuxdi"; // User requested 'cuxdi'
+        const posts_url = "https://cafe.frizzbees.dev/get_posts/1?name=";
+        const post_url = "https://social.nekoweb.org/post/?id=";
+
+        (async () => {
+            let attempt = 0;
+            const maxAttempts = 3;
+            let success = false;
+
+            while (attempt < maxAttempts && !success) {
+                try {
+                    const request = await fetch(posts_url + username);
+                    let json = await request.json();
+                    json = json[0];
+
+                    if (!json || !json["post"]) {
+                        throw new Error("No recent post found.");
+                    }
+
+                    const timestamp = json["timestamp"] * 1000;
+                    const time = new Date(timestamp).toLocaleTimeString('en-US', { 
+                        hour: '2-digit', 
+                        minute: '2-digit', 
+                        hour12: true 
+                    });
+
+                    const div = document.getElementById("nekocafe-status");
+                    
+                    // Only displaying text and time as requested
+                    div.innerHTML = `
+                        <p class="text-xs font-bold mb-1 accent-text uppercase">[cuxdi's status]</p>
+                        <p id="nekocafe-text" class="text-xs mb-1">
+                            <a href="${post_url + json["id"]}" class="underline">${json["post"]}</a>
+                        </p>
+                        <p id="nekocafe-time" class="text-xs italic text-gray-500 dark:text-gray-400">${time}</p>
+                    `;
+                    success = true;
+
+                } catch (error) {
+                    console.error("Error loading Nekocafe status:", error);
+                    attempt++;
+                    if (attempt < maxAttempts) {
+                        // Exponential backoff implemented manually in fetch loop
+                        await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000)); 
+                    }
                 }
-                .sidebar {
-                    width: 100%;
-                    height: auto;
-                    border-right: none;
-                    border-bottom: 1px solid var(--nord3);
-                }
-                .content {
-                    padding: 20px;
-                }
-                .vertical-marquee {
-                    display: none;
-                }
             }
-		</style>
-	</head>
+        })();
+    }
 
-	<body>
-		<div class="container">
-			<aside class="sidebar">
-				<header class="title-wrapper">
-					<h1 class="title">CUXDI</h1>
-					<div class="title-bg-img"></div>
-				</header>
+    // --- INITIALIZATION ---
+    window.onload = function() {
+      // 1. Initial Page Load
+      showPage('opening');
 
-				<div class="tagline-box" id="tagline-display">
-					</div>
-                
-                <div class="time-location-box">
-                    <div id="perth-time-display" class="time-line">
-                        </div>
-                    <div class="location-line">
-                        📌 Western Australia
-                    </div>
-                </div>
+      // 2. Load Dark Mode preference
+      const isDarkMode = localStorage.getItem('dark-mode') === 'enabled';
+      if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+        document.getElementById('mode-toggle').textContent = 'LIGHT MODE';
+      } else {
+        document.getElementById('mode-toggle').textContent = 'DARK MODE';
+      }
+      updateLocationIconColor(isDarkMode); // Set initial SVG color
 
-                <div class="status-wrapper">
-                    <h3>[Nekocafe Status]</h3>
-                    <div id="nekocafe-status">
-                        <p id="nekocafe-text">Loading latest post...</p>
-                    </div>
-                </div>
+      // 3. Navigation is now handled by inline onclick events on the <li> tags.
+      // This listener handles the header link only:
+      document.querySelector('.htitle a').addEventListener('click', (e) => showPage('opening', e));
 
-				<nav>
-					<ul class="tree">
-						<li>
-							<span>home</span>
-							<ul>
-								<li>
-									<a href="#" data-page="about-me"> about me </a>
-								</li>
-								<li><a href="#" data-page="bruises">blog</a></li>
-								<li><a href="#" data-page="neighbors">webrings</a></li>
-							</ul>
-						</li>
-						<li>
-							<span>human</span>
-							<ul>
-								<li><a href="#" data-page="catalogs">catalogs</a></li>
-								<li><a href="#" data-page="codes-1">codes</a></li>
-								<li><a href="#" data-page="creators">creators</a></li>
-								<li><a href="#" data-page="language">language</a></li>
-								<li><a href="#" data-page="codes-2">codes</a></li>
-							</ul>
-						</li>
-						<li>
-							<span>slaves</span>
-							<ul>
-								<li>
-									<span>collections</span>
-									<ul>
-										<li>
-											<a href="#" data-page="coins">coins</a>
-										</li>
-										<li>
-											<a href="#" data-page="dolls">dolls</a>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<a href="#" data-page="commonplace"> commonplace </a>
-								</li>
-							</ul>
-						</li>
-						<li><a href="#" data-page="404">404</a></li>
-					</ul>
-				</nav>
+      // 4. Start Perth Time clock
+      updatePerthTime();
+      setInterval(updatePerthTime, 1000);
+      
+      // 5. Load Nekocafe Status
+      loadNekocafeStatus();
 
-				<a href="#" class="stamp" id="theme-toggle">
-					<span>toggle theme</span>
-				</a>
+      // 6. Show Warning Overlay if not previously closed
+      if (!sessionStorage.getItem('warning_closed')) {
+        setTimeout(showOverlay, 50);
+      }
+    }
+  </script>
 
-				<footer class="bottom-center-text">
-					cuxdi.nekoweb.org
-				</footer>
-			</aside>
+  <!-- Audio element -->
+  <audio id="link" src="https://files.catbox.moe/y6llou.mp" preload="auto">your browser does not support the <code>audio</code> element.</audio>
 
-			<main class="content" id="content-box">
-				<p>Loading content...</p>
-			</main>
+  <!-- Warning overlay (Starts hidden via inline style) -->
+  <div id="warning" style="display: none;">
+    <div class="discretion">
+      <!-- <div><img src="https://i.ibb.co/99bKpTMg/ghostly.png" alt="angel" height="200px"></div>
+      <div>
+        <p><u><b>cuxdi</b> is rated <b>M</b> for <b>Mature</b>.</u></p>
+        <p> this scripture contains <i>blasphemy</i>, <i>graphic violence</i>, <i>strong language</i>, <i>sexual content</i>, <i>suicide</i>, <i>mental health</i>, <i>drinking</i>, <i>drugs</i>, and everything our lord deems sinful.</p>
+        <p><b>viewer discretion is advised</b></p>
+      </div> -->
+      <div>
+        <p>enter cuxdi?</p>
+      </div>
+      <a class="close" onclick="closeOverlay()">&times;</a>
+    </div>
+  </div>
 
-			<div class="corner-overlay"></div>
-			<div class="phone-img"></div>
-			<div class="top-left-img"></div>
-		</div>
-        
-		<div class="vertical-marquee">
-			<span>
-				Faceless angels fall You and I see They scream and call No god
-				answers They're bare They're faceless Only white hair With
-				creamy skin They Glided Or they ran Grace is confided Never in
-				or out They got thin And start to slow Did they sin? Was death a
-				punishment? Death was the end Or was it the start? No matter
-				what I send You'll never see angels - by Donny
-			</span>
-			<span>
-				Faceless angels fall You and I see They scream and call No god
-				answers They're bare They're faceless Only white hair With
-				creamy skin They Glided Or they ran Grace is confided Never in
-				or out They got thin And start to slow Did they sin? Was death a
-				punishment? Death was the end Or was it the start? No matter
-				what I send You'll never see angels - by Donny
-			</span>
-		</div>
 
-		<script>
-            // --- Content Mapping (All content unified here) ---
-            const SPA_PAGES = {
-                'about-me': '<h2>about me</h2><p>hiya! im cuxdi. A teen that\'s intrested in programming, computers, music, and reading. this site is still a work in progress, but feel to look at whats here. my dms are open on discord: <code>wfqi</code> <br> i still dont know if i like this layout yet.. but trust the process!</p>',
-                'hobbies': '<h2>hobbies</h2><p>I collect dust, read discarded poetry, and specialize in programming languages that haunt my dreams (mostly JavaScript).</p>', 
-                'bruises': '<h2>blog (posts)</h2><p>WIP. other parts in site are prioritised, still looking for a blog system tho.</p>',
-                'neighbors': '<h2>webrings</h2><p>not in any yet...</p>',
-                'catalogs': '<h2>catalogs</h2><p>Links to my various digital collections and curated web lists.</p>',
-                'codes-1': '<h2>codes</h2><p>Snippets, cheats, and useful scripts I\'ve found or written.</p>',
-                'creators': '<h2>creators</h2><p>A list of people who inspire me. Check out their work!</p>',
-                'language': '<h2>language</h2><p>Thoughts on syntax, communication, and the words that fail us.</p>',
-                'codes-2': '<h2>codes</h2><p>More code snippets, focusing on CSS and layout tricks.</p>',
-                'coins': '<h2>collections / coins</h2><p>A catalog of my strange and worthless digital currency.</p>',
-                'dolls': '<h2>collections / dolls</h2><p>These are my favorite characters and personas.</p>',
-                'commonplace': '<h2>commonplace</h2><p>Mundane observations from the physical world. A necessary evil.</p>',
-                '404': '<h2>404</h2><p>Not found. Are you lost? Good. The best places are often unmarked.</p>'
-            };
+  <div class="spirited">
 
-            const TAGLINES = [
-                "\"ill be there in spirit\"",
-                "\"you're too late i already died\"",
-                "\"pls tell me you're okay\"",
-                "\"limerence\"",
-                "\"you'd look cuter as a femboy\"",
-                "\"why?\"",
-                "\"what is the point?\"",
-                "\"why am i still living?\"",
-                "\"i thought you'd know\"",
-                "\"hiya\"",
-                "\"depression..\"",
-                "\"why am i like this\"",
-                "\"meaning of life?\"",
-                "\"why would you do that to yourself?\"",
-                "\"you can do better..\"",
-                "\"wfqi on discord\""
+    <nav class="greetings">
+      <!-- Perth Time Display was moved to the sidebar -->
+    </nav>
+    <div class="header">
+      <!-- Dark Mode toggle moved to .nav -->
+      
+      <!-- Updated site name -->
+      <h1 class="htitle"><a href="#opening" onclick="showPage('opening', event)">cuxdi</a></h1>
+      <h1 class="hsubtitle"><i>prayed to be crucified</i></h1>
+    </div>
+    
+    <!-- NEW: Marquee Location -->
+    <div id="interstitial-marquee">
+        <script>
+            const TAGLINES = [ 
+                "\"ill be there in spirit\"", 
+                "\"you're too late i already died\"", 
+                "\"pls tell me you're okay\"", 
+                "\"limerence\"", 
+                "\"you'd look cuter as a femboy\"", 
+                "\"why?\"", 
+                "\"what is the point?\"", 
+                "\"why am i still living?\"", 
+                "\"i thought you'd know\"", 
+                "\"hiya\"", 
+                "\"depression..\"", 
+                "\"why am i like this\"", 
+                "\"meaning of life?\"", 
+                "\"why would you do that to yourself?\"", 
+                "\"you can do better..\"", 
+                "\"wfqi on discord\"" 
             ];
             
-            let taglineInterval;
-            let perthTimeInterval; 
-
-            // --- Functionality ---
-
-            /**
-             * Sets up the SPA routing logic by retrieving content from the SPA_PAGES object.
-             * @param {string} pageId - The ID of the page to load (e.g., 'about-me').
-             */
-            function navigateTo(pageId) {
-                const contentBox = document.getElementById('content-box');
-                const pageContent = SPA_PAGES[pageId];
-
-                // Remove active class from all links
-                document.querySelectorAll('.tree a').forEach(a => a.classList.remove('active'));
-
-                if (pageContent) {
-                    // Update content
-                    contentBox.innerHTML = `<div class="page-content">${pageContent}</div>`;
-                    
-                    // Mark the clicked link as active
-                    const activeLink = document.querySelector(`.tree a[data-page="${pageId}"]`);
-                    if (activeLink) activeLink.classList.add('active');
-                } else {
-                    // Default error message 
-                    contentBox.innerHTML = `<h2>Content Error</h2><p>The content for this section is missing.</p>`;
+            // Track which taglines have been shown
+            let shownTaglines = new Array(TAGLINES.length).fill(false);
+            let currentTaglineIndex = 0;
+            
+            // Function to get the next tagline in a continuously random order
+            function getNextTagline() {
+                // If all taglines have been shown, reset the tracking
+                if (currentTaglineIndex >= TAGLINES.length) {
+                    shownTaglines.fill(false);
+                    currentTaglineIndex = 0;
                 }
-            }
-
-            /**
-             * Handles dark/light mode switching.
-             */
-            function toggleTheme() {
-                document.body.classList.toggle('light-mode');
-                const isLightMode = document.body.classList.contains('light-mode');
-                localStorage.setItem('cuxdi-theme', isLightMode ? 'light' : 'dark');
-            }
-
-            /**
-             * Updates the main Perth timezone clock display in the sidebar.
-             */
-            function updatePerthTime() {
-                const timeElement = document.getElementById('perth-time-display');
-                if (!timeElement) return;
                 
-                try {
-                    const now = new Date();
-                    const options = {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit',
-                        hour12: true,
-                        timeZone: 'Australia/Perth'
-                    };
-                    
-                    const formatter = new Intl.DateTimeFormat('en-US', options);
-                    const timeString = formatter.format(now);
-                    
-                    // Display only the clock icon and time
-                    timeElement.innerHTML = `⌚ ${timeString}`;
-
-                } catch (e) {
-                    timeElement.textContent = "⌚ Time loading error";
-                    console.error("Timezone formatting failed:", e);
-                }
-            }
-
-            /**
-             * Chooses and displays a random tagline.
-             * @param {boolean} restartTimer - If true, clears and restarts the automatic rotation timer.
-             */
-            function displayRandomTagline(restartTimer = false) {
-                const taglineBox = document.getElementById('tagline-display');
-                if (!taglineBox) return;
-
-                const randomIndex = Math.floor(Math.random() * TAGLINES.length);
-                taglineBox.textContent = TAGLINES[randomIndex];
-
-                if (restartTimer) {
-                    clearInterval(taglineInterval);
-                    taglineInterval = setInterval(() => displayRandomTagline(false), 60000);
-                }
-            }
-
-            /**
-             * Fetches and displays the latest NekoCafe status.
-             */
-            function fetchNekoCafeStatus() {
-                const username = "cuxdi"; 
-                const posts_url = "https://cafe.frizzbees.dev/get_posts/1?name=";
-                const post_url = "https://social.nekoweb.org/post/?id=";
-                const div = document.getElementById("nekocafe-status");
-
-                (async () => {
-                    try {
-                        const request = await fetch(posts_url + username);
-                        let json = await request.json();
-                        // Assume we want the very first (latest) post
-                        const latestPost = json[0]; 
-
-                        if (latestPost && latestPost.post) {
-                            const timestamp = latestPost.timestamp * 1000;
-                            // Format timestamp to a human-readable UTC string
-                            // Using toLocaleString with options is cleaner for non-UTC
-                            const timeOptions = { 
-                                year: 'numeric', month: 'short', day: 'numeric', 
-                                hour: '2-digit', minute: '2-digit', 
-                                timeZoneName: 'short' 
-                            };
-                            const time = new Date(timestamp).toLocaleString('en-US', timeOptions);
-                        
-                            // Only display the post content and the time
-                            div.innerHTML = `
-                                <p id="nekocafe-text"><a href="${post_url + latestPost.id}">${latestPost.post}</a></p>
-                                <p id="nekocafe-time">${time}</p>
-                            `;
-                        } else {
-                             div.innerHTML = `<p id="nekocafe-text">No recent status found.</p>`;
-                        }
-
-                    } catch (error) {
-                        console.error("NekoCafe fetch failed:", error);
-                        div.innerHTML = `<p id="nekocafe-text">Status feed unavailable.</p>`;
+                // Find a random tagline that hasn't been shown yet
+                let availableIndices = [];
+                for (let i = 0; i < TAGLINES.length; i++) {
+                    if (!shownTaglines[i]) {
+                        availableIndices.push(i);
                     }
-                })();
+                }
+                
+                // Get a random index from available ones
+                const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+                
+                // Mark this tagline as shown
+                shownTaglines[randomIndex] = true;
+                currentTaglineIndex++;
+                
+                return TAGLINES[randomIndex];
             }
-
-
-            // --- Initialization ---
-
-            document.addEventListener('DOMContentLoaded', function() {
-                // 1. Apply saved theme preference
-                const savedTheme = localStorage.getItem('cuxdi-theme');
-                if (savedTheme === 'light') {
-                    document.body.classList.add('light-mode');
-                }
-
-                // 2. Attach click listener for theme toggle
-                document.getElementById('theme-toggle').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    toggleTheme();
-                });
-
-                // 3. Attach click listeners for SPA navigation
-                document.querySelectorAll('.tree a').forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const pageId = link.getAttribute('data-page');
-                        if (pageId) {
-                            navigateTo(pageId);
-                        }
-                    });
-                });
+            
+            // Function to continuously update the marquee content
+            function updateMarquee() {
+                const marqueeContent = document.getElementById('tagline-marquee');
                 
-                // 4. Initialize and start the Perth clock
-                updatePerthTime();
-                perthTimeInterval = setInterval(updatePerthTime, 1000); 
-
-                // 5. Initialize and cycle taglines
-                displayRandomTagline(false); 
-                taglineInterval = setInterval(() => displayRandomTagline(false), 60000); 
-
-                // 6. Add double-click listener to cycle tagline immediately
-                const taglineBox = document.getElementById('tagline-display');
-                if (taglineBox) {
-                    taglineBox.addEventListener('dblclick', function() {
-                        displayRandomTagline(true); 
-                    });
+                // Add a new tagline to the end with spacing
+                marqueeContent.innerHTML += getNextTagline() + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ";
+                
+                // Schedule the next update
+                setTimeout(updateMarquee, 2000); // Add a new tagline every 2 seconds
+            }
+        </script>
+        <marquee id="tagline-marquee" scrollamount="3">
+            <img src="https://i.ibb.co/bxfDCch/swirl-dark.gif" height="20" alt="swirl">
+            <script>
+                // Initialize with a few taglines
+                for (let i = 0; i < 10; i++) {
+                    document.write(getNextTagline() + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ");
                 }
                 
-                // 7. Fetch NekoCafe status
-                fetchNekoCafeStatus();
+                // Start continuous updates after the page loads
+                window.addEventListener('load', function() {
+                    setTimeout(updateMarquee, 2000);
+                });
+            </script>
+        </marquee>
+    </div>
 
-                // 8. Load default page (about me) on initial load
-                navigateTo('about-me'); 
-            });
-		</script>
-	</body>
+    <div class="corpse">
+      <div class="nav">
+        
+        <!-- NEW LOCATION FOR DARK MODE TOGGLE -->
+        <div class="flex flex-col items-center p-2 mb-4">
+            <button id="mode-toggle" onclick="toggleDarkMode()" class="w-full text-center"></button>
+        </div>
+        
+        <!-- NEW LOCATION & TIME INFO -->
+        <div class="location-info mb-4">
+            <p class="flex items-center justify-center text-xs mb-1">
+                <!-- Clock Icon (Lucide: Clock) -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span id="perth-time">12:00 AM</span>
+            </p>
+            <p class="flex items-center justify-center text-xs">
+                <!-- Pin Icon (Lucide: MapPin) -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M12 21.7c-4.4 0-8-3.6-8-8c0-5.5 8-13.7 8-13.7s8 8.2 8 13.7c0 4.4-3.6 8-8 8z"/><circle cx="12" cy="12" r="3"/></svg>
+                Western Australia
+            </p>
+        </div>
+        
+        <!-- NEKOCAFE STATUS -->
+        <div id="nekocafe-status"></div>
+
+        <h2>about</h2>
+        <ul>
+          <!-- Added start page to navigation and made whole LI clickable -->
+          <li onclick="showPage('opening', event)">
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="I. ">
+            st. rested
+          </li>
+          <!-- Made whole LI clickable -->
+          <li onclick="showPage('description', event)">
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="I. ">
+            user
+          </li>
+          <!-- Made whole LI clickable -->
+          <li onclick="showPage('statistics', event)">
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="II. ">
+            stats
+          </li>
+          <!-- Made whole LI clickable -->
+          <li onclick="showPage('blog', event)">
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="III. ">
+            blog
+          </li>
+          <!-- Made whole LI clickable -->
+          <li onclick="showPage('policy', event)">
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="III. ">
+            policy
+          </li>
+        </ul>
+        <h2>work</h2>
+        <ul>
+          <li>
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="V. ">
+            <a href="https://filemanager.carrd.co/" target="blank">carrd</a>
+          </li>
+          <li>
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="VI. ">
+            <a href="https://artfight.net/~02179" target="blank">artfight</a>
+          </li>
+          <li>
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="VII. ">
+            <a href="https://x.com/no_02179" target="blank">twitter</a>
+          </li>
+          <li>
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="VIII. ">
+            <a href="https://vgen.co/02179" target="blank">vgen</a>
+          </li>
+        </ul>
+        <h2>market</h2>
+        <ul>
+          <li>
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="IX. ">
+            <a href="https://pixels.crd.co/#hi" target="blank">sitemap</a>
+          </li>
+          <li>
+            <img src="https://i.ibb.co/xSwkDYC6/swirl-dark.gif" alt="X. ">
+            <a href="https://pixels.crd.co/#hi" target="blank">pixels</a>
+          </li>
+        </ul>
+        <div></div>
+      </div>
+      <div class="main">
+        <!-- Content Pages -->
+        
+        <div class="page" id="description">
+          <h3 id="title">character</h3>
+          <p>[placeholder]</p>
+          <p><b class="accent-text">shows</b> >> studio ghibli, jjk, dbz, <i>sanrio</i>, <i>supernatural</i>, haikyuu, mp100, <i>one piece</i>, moon knight.</p>
+          <p><b class="accent-text">games</b> >> ts4, sonic, ut/dr, <i>minecraft</i>, dbd, sdv, <i>ffXIV</i>, <i>resident evil</i>, overwatch, animal crossing.</p>
+          <p><b class="accent-text">people</b> >> <i>ghostface</i>, aizawa shouta, fushiguro toji, <i>jeon jungkook</i>, leon s. kennedy, <i>ushijima wakatoshi</i>.</p>
+        </div>
+
+        <div class="page" id="statistics">
+          <h3 id="title">statistics</h3>
+          <table id="calendar">
+            <tbody>
+              <tr>
+                <td colspan="7" bgcolor="#c7eaf2"><strong>2025年&nbsp;9月</strong></td>
+              </tr>
+              <tr>
+                <td bgcolor="#daeef2">-</td>
+                <td bgcolor="#daeef2">-</td>
+                <td bgcolor="#daeef2">-</td>
+                <td bgcolor="#daeef2">-</td>
+                <td bgcolor="#daeef2">1</td>
+                <td bgcolor="#daeef2">2</td>
+                <td bgcolor="#d7d7d7">3</td>
+              </tr>
+              <tr>
+                <td bgcolor="#daeef2">4</td>
+                <td bgcolor="#daeef2">5</td>
+                <td bgcolor="#daeef2">6</td>
+                <td bgcolor="#daeef2">7</td>
+                <td bgcolor="#daeef2">8</td>
+                <td bgcolor="#daeef2">9</td>
+                <td bgcolor="#daeef2">10</td>
+              </tr>
+              <tr>
+                <td bgcolor="#daeef2">11</td>
+                <td bgcolor="#daeef2">12</td>
+                <td bgcolor="#daeef2">13</td>
+                <td bgcolor="#daeef2">14</td>
+                <td bgcolor="#daeef2">15</td>
+                <td bgcolor="#daeef2">16</td>
+                <td bgcolor="#daeef2">17</td>
+              </tr>
+              <tr>
+                <td bgcolor="#daeef2">18</td>
+                <td bgcolor="#daeef2">19</td>
+                <td bgcolor="#daeef2">21</td>
+                <td bgcolor="#daeef2">22</td>
+                <td bgcolor="#daeef2">23</td>
+                <td bgcolor="#daeef2">24</td>
+                <td bgcolor="#daeef2">25</td>
+              </tr>
+              <tr>
+                <td bgcolor="#daeef2">26</td>
+                <td bgcolor="#daeef2">27</td>
+                <td bgcolor="#daeef2">28</td>
+                <td bgcolor="#daeef2">20</td>
+                <td bgcolor="#daeef2">30</td>
+                <td bgcolor="#daeef2">-</td>
+                <td bgcolor="#daeef2">-</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>[placeholder]</p>
+          <p>[placeholder]</p>
+          <br>
+        </div>
+        
+        <div class="page" id="policy">
+          <h3 id="title">artwork policy</h3>
+          <p><b class="accent-text">terms of service.</b>
+            * please repost and share my artwork with credit! more exposure means more time i can work to better my art and any future commissions you might have with me.
+            * i will post any artwork on my portfolio/social media unless requested otherwise.
+            * i am 18+ and allow those that are above 18 to request sexual content.
+            * do not request me to draw snuff, hate art, underage characters in sexual pieces, and stolen art.
+          <p>
+          <p><b class="accent-text">communicate w/ me.</b> please contact me through VGen's direct message or Discord, i am open to conversations on both apps. i also have a twitter that you can try to message on but there are limitations that the website has.
+          <p>
+          <p><b class="accent-text">refunds.</b> i do not accept refunds after i have started a piece. i will allow full refunds for work i cannot get to in time or that have not been started. you could be added to a waitlist if you wish to still receive a commission after i couldn't get to it.</p>
+          <p><b class="accent-text">usage & IPR.</b> please only use my works for personal use unless explicitly stated otherwise or agreed upon during commission process. i am not responsible for the character, who you are, or what you represent. do not use my art for NFT, AI learning, or other generative content. i retain the rights of my intellectual property, use of my work without permission is bound to Copyright© Infringement.</p>
+          <p>read full list <a href="https://vgen.co/02179" class="accent-text" target="blank">here</a>.</p>
+        </div>
+
+        <div class="page" id="blog">
+          <h3 id="title">revelations</h3>
+          <p>[placeholder]</p>
+          <h3 id="title">revelation 1:4</h3>
+          <p>[placeholder]</p>
+          <h3 id="title">revelation 9:7</h3>
+          <p>[placeholder]</p>
+        </div>
+        
+        <!-- Default Landing Page -->
+        <div id="opening">
+          <h3 id="title">st. rested</h3>
+          <div class="content">
+            <div>
+              <p>hiya, i'm <b>cuxdi</b>.</p>
+              <p>This is my work in progress site that I will work on. It's in very very early stages, and expect bugs or empty pages. I've been doing web development for a long time now but I never had a small personal website like this, only big projects. Despite the theme and some contents talking about "the lord" and god, im not really religious, this is all for aesthetics. This website has been through many styles and version but i think I like this one to be the best. I'd be proud to show it to someone.</p>
+            </div>
+            <img src="https://i.ibb.co/d0tf4cS7/02179-archive.png" alt="portrait" title="what went wrong?">
+          </div>
+        </div>
+        <div></div>
+      </div>
+      <div class="byf">
+        <div id="section">
+          <h2>buttons</h2>
+          <p>These are people who are my friends, mutuals, sites I like/think are cool, and just random buttons i find on the web!</p>
+        </div>
+        <marquee scrollamount="3" onmouseover="this.stop()" onmouseout="this.start()">
+          <a href="https://philia995.neocities.org/" target="_blank">
+            <img src="https://files.catbox.moe/h6gccq.png" alt="Philia995">
+          </a>
+          <a href="https://riddler.nekoweb.org" target="_blank"><img src="https://riddler.nekoweb.org/img/b/v2.gif" alt="Riddler"></a>
+          <a href="https://arataka.moe/" target="_blank"><img alt="Laith Rai7an" src="https://arataka.moe/image/button/arataka-b.gif" /></a>
+          <a href="https://sheep.nekoweb.org/" target="_blank"><img src="https://sheep.nekoweb.org/assets/mybutton.gif" alt="Sheep"></a>
+        </marquee>
+        <div id="section">
+          <h2>blah</h2>
+          <p>[placeholder]</p>
+          <center>link me</center>
+          <a href="https://02179.nekoweb.org/" target="_blank"><img src="https://i.ibb.co/4wm4W966/stitched-button.png" alt="02179"></a>
+          <textarea resize:"none"><a href="https://02179.nekoweb.org/" target="_blank"><img src="https://i.ibb.co/4wm4W966/stitched-button.png" alt="02179"></a></textarea>
+          <br>
+        </div>
+        <br>
+        <div id="section">
+          <h2>guests</h2>
+          <p>guestbook here</p>
+        </div>
+      </div>
+    </div>
+    <div class="forfun">
+      <a href="https://nekoweb.org/follow/cuxdi" target="_blank" style="display: block; background: #000; color: #fff; border: 2px solid #fff; padding: 5px 10px; font-size: 10px; font-family: 'pantelegraph', monospace; cursor: pointer; border-radius: 5px; transition: all 0.2s; text-align: center; text-decoration: none;">
+        FOLLOW CUXDI
+      </a>
+      <p>[placeholder]</p>
+    </div>
+
+    <div class="silver">
+      <p><a href="https://www.w3schools.com/" target="_blank">w3s</a> | <a href="https://code.visualstudio.com/" target="_blank">vscode</a> | <a href="https://www.w3schools.com/" target="_blank">information</a> | <a href="mailto:toraoyu@gmail.com">email</a></p>
+      <p style="font-size: 12px">copyright <span style="font:bold">©</span> 2025 <b>cuxdi</b>, all rights reserved.</p>
+      <p> <i>this site is a work in progress, alot is subject to change, may the lord bless you.</i></p>
+    </div>
+    <!-- Decorator images (positioning is relative to .spirited container) -->
+    <div id="scissors"></div>
+    <div id="wax"></div>
+    <div id="paper1"></div>
+    <div id="paper2"></div>
+    <div id="thumbtack"></div>
+  </div>
+</body>
+
 </html>
